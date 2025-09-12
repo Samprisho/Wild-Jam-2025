@@ -28,7 +28,6 @@ far = 4042.0
 
 [node name="RigidBody3D" parent="StaticBody3D" instance=ExtResource("1_4xfga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-accelaration = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 4, 0)
