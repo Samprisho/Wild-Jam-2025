@@ -15,6 +15,14 @@ run/main_scene="uid://bfchyqkgye64x"
 config/features=PackedStringArray("4.4")
 config/icon="res://icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://resources/": "orange",
+"res://scenes/": "yellow",
+"res://scripts/": "red"
+}
+
 [input]
 
 Forward={

@@ -1,16 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdcgi4ad58ak5"]
+[gd_scene load_steps=7 format=3 uid="uid://cdcgi4ad58ak5"]
 
 [ext_resource type="Script" uid="uid://hggsm40askbl" path="res://scripts/ball.gd" id="1_facm7"]
+[ext_resource type="Script" uid="uid://c7k7vfltkeghr" path="res://scripts/camera.gd" id="2_qdjfq"]
+[ext_resource type="Curve" uid="uid://c400ftwepd50k" path="res://resources/mouse_sensivity_curve.tres" id="3_pwhwf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5ubf0"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_facm7"]
 
-[node name="RigidBody3D" type="RigidBody3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_facm7"]
+
+[node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("springArm")]
 script = ExtResource("1_facm7")
+springArm = NodePath("SpringArm3D/Camera3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_5ubf0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_facm7")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.950516, 0.310676, 0, -0.310676, 0.950516, 0, 0, 0)
+top_level = true
+collision_mask = 8
+shape = SubResource("SphereShape3D_facm7")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.950516, -0.310676, 0, 0.310676, 0.950516, 0, 0, 0)
+current = true
+
+[node name="CameraControl" type="Node" parent="." node_paths=PackedStringArray("springArm", "targetNode")]
+script = ExtResource("2_qdjfq")
+springArm = NodePath("../SpringArm3D")
+targetNode = NodePath("..")
+sensitivityCurve = ExtResource("3_pwhwf")
