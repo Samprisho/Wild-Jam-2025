@@ -18,15 +18,19 @@ radial_segments = 16
 rings = 16
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_facm7"]
+radius = 0.1
 
 [node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("springArm")]
+collision_layer = 2
 mass = 0.7
 physics_material_override = ExtResource("1_r2clb")
 gravity_scale = 1.3
+contact_monitor = true
+max_contacts_reported = 1
 linear_damp = 0.1
 angular_damp = 4.0
 script = ExtResource("1_facm7")
-springArm = NodePath("SpringArm3D/Camera3D")
+springArm = NodePath("Node3D/SpringArm3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_5ubf0")
@@ -34,19 +38,22 @@ shape = SubResource("SphereShape3D_5ubf0")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_facm7")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.950516, 0.310676, 0, -0.310676, 0.950516, 0, 0, 0)
+[node name="Node3D" type="Node3D" parent="."]
 top_level = true
-collision_mask = 0
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.950516, 0.310676, 0, -0.310676, 0.950516, 0, 0, 0)
 shape = SubResource("SphereShape3D_facm7")
 spring_length = 3.0
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 0.950516, -0.310676, 0, 0.310676, 0.950516, 0, 0, 0)
 current = true
 
-[node name="CameraControl" type="Node" parent="." node_paths=PackedStringArray("springArm", "targetNode")]
+[node name="CameraControl" type="Node" parent="." node_paths=PackedStringArray("springArm", "camera", "targetNode", "ball")]
 script = ExtResource("2_qdjfq")
-springArm = NodePath("../SpringArm3D")
+springArm = NodePath("../Node3D/SpringArm3D")
+camera = NodePath("../Node3D/SpringArm3D/Camera3D")
 targetNode = NodePath("..")
+ball = NodePath("..")
 sensitivityCurve = ExtResource("3_pwhwf")
