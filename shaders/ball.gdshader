@@ -8,20 +8,20 @@ void vertex() {
 }
 
 void fragment() {
-	
+
 	float wave = sin(TIME) * 5.f;
 	float width = stripWidth;
-	
+
 	float stripUp = step(width, 1.f - UV.y + offset);
 	float stripDown = step(width, UV.y + offset);
-	
+
 	float stripLeft = step(width, 1.f - UV.x);
 	float stripRight = step(width, UV.x);
-	
+
 	ALBEDO = vec3(
 		(1.f - (stripUp * stripDown)) * (1.f - (stripLeft * stripRight))
 	);
-	
+
 }
 
 //void light() {
