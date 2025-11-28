@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	
 	var difference = abs(desiredDirection.angle() - actualDirection.angle())
 	
-	angular_velocity += calculated_velocity * (brakeVelocityMultiplyer if difference >= 1 else 1)
+	angular_velocity += calculated_velocity * (brakeVelocityMultiplyer if difference >= 1 else 1.)
 	
 	if !Input.is_action_pressed("Ability 1"):
 		angular_velocity = lerp(angular_velocity, Vector3.ZERO, delta * spinBrakePower)
@@ -58,6 +58,7 @@ func calculate_motion(input):
 func calculate_desired_rotation_direction(input: Vector2):
 	var dir = ((springArm.global_basis.x.normalized() * input.x) + (springArm.global_basis.z.normalized() * input.y)).normalized()
 	return dir
+
 func calculate_desired_linear_direction(input: Vector2): 
 	pass
 
@@ -65,6 +66,8 @@ func reset_collision_shape():
 	collisionSphere.radius = size * 0.5
 	mass = initalMass * size
 	jumpPower = jumpPower + (size / 10)
+
+
 func on_floor() -> bool:
 	var floor: StaticBody3D = get_colliding_bodies()[0] if get_colliding_bodies().size() > 0 else null
 	if floor:

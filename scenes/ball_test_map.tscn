@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=4 uid="uid://bfchyqkgye64x"]
 
-[ext_resource type="PackedScene" uid="uid://cdcgi4ad58ak5" path="res://scenes/the_ball.tscn" id="1_4xfga"]
-[ext_resource type="PhysicsMaterial" uid="uid://jsnkm0bavc12" path="res://resources/Physical Mats/grass_phys_mat.tres" id="2_gldc4"]
-[ext_resource type="PackedScene" uid="uid://dn7emw3uawrka" path="res://scenes/leaf_pile.tscn" id="2_paxxb"]
-[ext_resource type="PackedScene" uid="uid://cmcfwlp2es81a" path="res://scenes/landscape.tscn" id="4_0cso3"]
+[ext_resource type="PackedScene" uid="uid://cdcgi4ad58ak5" path="res://scenes/the_ball.tscn" id="1_7p4tv"]
+[ext_resource type="PhysicsMaterial" uid="uid://jsnkm0bavc12" path="res://resources/Physical Mats/grass_phys_mat.tres" id="2_sg5sg"]
+[ext_resource type="PackedScene" uid="uid://dn7emw3uawrka" path="res://scenes/leaf_pile.tscn" id="3_1i1ri"]
+[ext_resource type="PackedScene" uid="uid://cmcfwlp2es81a" path="res://scenes/landscape.tscn" id="4_4o2ky"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4xfga"]
 rough = true
@@ -26,12 +26,12 @@ data = PackedVector3Array(5, 1, 5, 5, 1, 3, 5, 0, 3, -5, -0.5, 3, -5, -1, 3, 5, 
 sky_curve = 0.135188
 ground_curve = 0.101965
 
-[sub_resource type="Sky" id="Sky_paxxb"]
+[sub_resource type="Sky" id="Sky_7p4tv"]
 sky_material = SubResource("ProceduralSkyMaterial_4xfga")
 
 [sub_resource type="Environment" id="Environment_gldc4"]
 background_mode = 2
-sky = SubResource("Sky_paxxb")
+sky = SubResource("Sky_7p4tv")
 
 [node name="Node3D" type="Node3D"]
 
@@ -44,13 +44,13 @@ size = 10.32
 near = 0.02
 far = 4042.0
 
-[node name="RigidBody3D" parent="." instance=ExtResource("1_4xfga")]
+[node name="RigidBody3D" parent="." instance=ExtResource("1_7p4tv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mass = 5.579
 physics_material_override = SubResource("PhysicsMaterial_4xfga")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-physics_material_override = ExtResource("2_gldc4")
+physics_material_override = ExtResource("2_sg5sg")
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0212145, -0.0101702, -0.00314999)
@@ -64,44 +64,44 @@ shape = SubResource("ConcavePolygonShape3D_gldc4")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gldc4")
 
-[node name="Node3D" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -2)
 
-[node name="Node3D2" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D2" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
 value = 0.2
 
-[node name="Node3D3" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D3" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -3)
 value = 0.2
 
-[node name="Node3D4" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D4" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -3)
 value = 0.2
 
-[node name="Node3D5" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D5" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -2)
 value = 0.2
 
-[node name="Node3D6" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D6" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
 value = 0.2
 
-[node name="Node3D7" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D7" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -3)
 value = 0.2
 
-[node name="Node3D8" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D8" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -2)
 value = 0.2
 
-[node name="Node3D9" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D9" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -3)
 value = 0.2
 
-[node name="Node3D10" parent="." instance=ExtResource("2_paxxb")]
+[node name="Node3D10" parent="." instance=ExtResource("3_1i1ri")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -3)
 value = 0.2
 
-[node name="landscape" parent="." instance=ExtResource("4_0cso3")]
+[node name="landscape" parent="." instance=ExtResource("4_4o2ky")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -41, 14, -17)

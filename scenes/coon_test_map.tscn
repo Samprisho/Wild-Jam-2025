@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://b18aotyeqm04y"]
+
+[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/the_coon.tscn" id="1_mvjfa"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_gfvr5"]
+left_to_right = 1.0
+size = Vector3(3, 1.5, 4)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mvjfa"]
+sky_curve = 0.135188
+ground_curve = 0.101965
+
+[sub_resource type="Sky" id="Sky_paxxb"]
+sky_material = SubResource("ProceduralSkyMaterial_mvjfa")
+
+[sub_resource type="Environment" id="Environment_1kprn"]
+background_mode = 2
+sky = SubResource("Sky_paxxb")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Floor" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
+size = Vector3(5.61694, 0.0947266, 10.7598)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.44263, 0, 3.45453)
+size = Vector3(5.61694, 0.0947266, 3.85071)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4426, 1.4, 1.00453)
+size = Vector3(3.7, 0.0947266, 9)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.1, 0.7, 3.5)
+mesh = SubResource("PrismMesh_gfvr5")
+
+[node name="Platforms" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85917, 2, -0.358868)
+radius = 1.0
+height = 0.4
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12062, 2.73117, -2.32264)
+radius = 1.0
+height = 0.4
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.08617, 3.17959, -0.477149)
+radius = 1.0
+height = 0.4
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_mvjfa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.518077, 0, -3.15297)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 4, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1kprn")

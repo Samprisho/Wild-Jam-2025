@@ -1,18 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://dr64bo2d36v0n"]
+[gd_scene load_steps=11 format=3 uid="uid://dr64bo2d36v0n"]
 
-[ext_resource type="Script" uid="uid://dcmnxut32m6d6" path="res://scripts/the_coon.gd" id="1_0fj4n"]
+[ext_resource type="Script" uid="uid://biykxsftwgexj" path="res://scripts/coon.gd" id="1_bhtm4"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_gvuuu"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_rowf5"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_nu555"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_t5b5t"]
+[ext_resource type="Script" uid="uid://bbi77rt2a4od5" path="res://scripts/CoonMovement.gd" id="6_bhtm4"]
 [ext_resource type="Script" uid="uid://b4dwolbvt8our" path="res://addons/godot_state_charts/history_state.gd" id="6_lecfq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ku830"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0fj4n"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_lecfq"]
+
 [node name="CharacterBody3D" type="CharacterBody3D"]
-script = ExtResource("1_0fj4n")
+script = ExtResource("1_bhtm4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -67,4 +70,14 @@ delay_in_seconds = "0.0"
 script = ExtResource("6_lecfq")
 default_state = NodePath("../Grounded")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CoonMovementComponent" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("6_bhtm4")
+body = NodePath("..")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(0.990447, 0, 0.137894, -0.028971, 0.977681, 0.208089, -0.134816, -0.210096, 0.968341, 0, 1.37294, 0)
+shape = SubResource("SphereShape3D_lecfq")
+spring_length = 2.635
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(0.990447, -0.00838941, -0.137639, -4.95175e-09, 0.998148, -0.0608395, 0.137894, 0.0602583, 0.988612, 0, 0, 0)

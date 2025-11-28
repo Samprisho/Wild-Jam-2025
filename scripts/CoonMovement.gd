@@ -1,10 +1,12 @@
-extends CharacterBody3D
-class_name raccoon
+extends Node
+class_name CoonMovement
+
+@export var body: Coon
 
 @export_category("Grounded")
-@export var ground_acceleration: float = 2
-@export var ground_friction: float = 10
-@export var max_ground_speed: float = 20
+@export var ground_acceleration: float = 15
+@export var ground_friction: float = 15
+@export var max_ground_speed: float = 5
 
 @export_category("Airborne")
 @export var air_acceleration: float = 2
@@ -19,6 +21,11 @@ class_name raccoon
 
 var stateChart: StateChart
 var collisionMesh: CapsuleMesh
+var ownedBall: Ball
+
+var GRAVITY: float = ProjectSettings.get("physics/3d/default_gravity")
+
+var active: bool = false
 
 class CoonStateContainer:
 	func _init(pos:Vector3, vel:Vector3) -> void:
@@ -41,12 +48,13 @@ class CoonInputContainer:
 
 
 func _ready():
-	stateChart = get_node("StateChart")
+	pass
 	
 
 func _physics_process(_delta: float) -> void:
 	var inputDir: Vector2 = Vector2(
-		Input.get_axis("Backward", "Forward"),
+		# Remember, -Z is forward, and Z is backward
+		Input.get_axis("Forward", "Backward"),
 		Input.get_axis("Left", "Right")
 	)
 
@@ -55,9 +63,9 @@ func _physics_process(_delta: float) -> void:
 	var crouching: bool = Input.is_action_pressed("Ability 1")
 
 	var input = CoonInputContainer.new(inputDir, jumping, crouching)
-	var state = CoonStateContainer.new(position, velocity)
+	var state = CoonStateContainer.new(body.position, body.velocity)
 
-	if is_on_floor():
+	if body.is_on_floor():
 		ground_simulate(input, state)
 	else:
 		air_simulate(input, state)
@@ -66,8 +74,8 @@ func _physics_process(_delta: float) -> void:
 func normalized_dir_from_axis(inputaxis: Vector2) -> Vector3:
 	var dir := Vector3(0,0,0)
 
-	dir += global_basis.z * inputaxis.x
-	dir += global_basis.x * inputaxis.y
+	dir += body.global_basis.z * inputaxis.x
+	dir += body.global_basis.x * inputaxis.y
 
 	dir = dir.normalized()
 
@@ -76,33 +84,42 @@ func normalized_dir_from_axis(inputaxis: Vector2) -> Vector3:
 func is_inputting_directions(input: CoonInputContainer) -> bool:
 	var axis: Vector2 = input.inputaxis
 
-	return axis.length() == 0
+	return axis.length() != 0
 
 func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
+	var dir = normalized_dir_from_axis(input.inputaxis)
 
+	body.position = state.statePosition
+	body.velocity = state.stateVelocity
 
-	move_and_slide()
-	return CoonStateContainer.new(position, velocity)
+	body.velocity.y -= GRAVITY * get_physics_process_delta_time()
+	body.velocity += dir * air_acceleration * get_physics_process_delta_time()
+	
+	body.move_and_slide()
+	return CoonStateContainer.new(body.position, body.velocity)
 
 
 func ground_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	var dir = normalized_dir_from_axis(input.inputaxis)
 
-	position = state.statePosition
-	velocity = state.stateVelocity
+	body.position = state.statePosition
+	body.velocity = state.stateVelocity
 
-	velocity += dir * ground_acceleration * get_physics_process_delta_time()
+	body.velocity += dir * ground_acceleration * get_physics_process_delta_time()
 
-	if velocity.length() > max_ground_speed or not is_inputting_directions(input):
-		velocity.move_toward(Vector3.ZERO, get_physics_process_delta_time() * ground_friction)
+	if body.velocity.length() > max_ground_speed or not is_inputting_directions(input):
+		print("Applying ground friction")
+		body.velocity = body.velocity.move_toward(
+			Vector3.ZERO, ground_friction * get_physics_process_delta_time()
+		)
 
-	move_and_slide()
-	return CoonStateContainer.new(position, velocity)
-
+	body.move_and_slide()
+	return CoonStateContainer.new(body.position, body.velocity)
 
 
 func wallrun_simulate(input: CoonInputContainer, state: CoonStateContainer):
+	
+	# TODO: Implement Wallrun
 
-
-	move_and_slide()
-	return CoonStateContainer.new(position, velocity)
+	body.move_and_slide()
+	return CoonStateContainer.new(body.position, body.velocity)
