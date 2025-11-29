@@ -35,7 +35,14 @@ class CoonStateContainer:
 		self.stateVelocity = body.velocity
 		self.stateOnFloor = body.is_on_floor()
 
-	
+	func _to_string() -> String:
+		var result: String = ""
+
+		result += "Pos: "+ str(statePosition) + "\n" 
+		result += "Vel: "+ str(Vector2(stateVelocity.x, stateVelocity.z).length()) \
+				+ " Y: "+ str(stateVelocity.y) + "\n"
+
+		return result
 	var statePosition: Vector3
 	var stateVelocity: Vector3
 	var stateOnFloor: bool
@@ -91,10 +98,16 @@ func is_inputting_directions(input: CoonInputContainer) -> bool:
 	return axis.length() != 0
 
 func simulate(input: CoonInputContainer, state: CoonStateContainer):
+	var newState: CoonStateContainer
+	
 	if state.stateOnFloor:
-		ground_simulate(input, state)
+		newState = ground_simulate(input, state)
 	else:
-		air_simulate(input, state)
+		newState = air_simulate(input, state)
+	
+	print(newState)
+	ClientUi.showPos.emit(newState.to_string())
+
 
 func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	var dir = normalized_dir_from_axis(input.inputaxis)
@@ -103,9 +116,14 @@ func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	body.velocity = state.stateVelocity
 
 	body.velocity.y -= GRAVITY * get_physics_process_delta_time()
+
+	var velWithouty := Vector3(body.velocity.x, 0, body.velocity.z) .normalized()
+	print(air_acceleration - (clamp(velWithouty.normalized().dot(dir), 0, 1) * air_acceleration))
 	
-	print(air_acceleration - (clamp(body.velocity.normalized().dot(dir), 0, 1) * air_acceleration))
-	body.velocity += dir * (air_acceleration - (clamp(body.velocity.normalized().dot(dir), 0, 1) * air_acceleration)) * get_physics_process_delta_time()
+	body.velocity += \
+		dir * \
+		(air_acceleration - (clamp(velWithouty.normalized().dot(dir), 0, 1) * air_acceleration)) \
+		* get_physics_process_delta_time()
 
 	body.move_and_slide()
 	return CoonStateContainer.new(body)
