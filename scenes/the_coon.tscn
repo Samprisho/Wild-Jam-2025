@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dr64bo2d36v0n"]
+[gd_scene load_steps=12 format=3 uid="uid://dr64bo2d36v0n"]
 
 [ext_resource type="Script" uid="uid://biykxsftwgexj" path="res://scripts/coon.gd" id="1_bhtm4"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_gvuuu"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_t5b5t"]
 [ext_resource type="Script" uid="uid://bbi77rt2a4od5" path="res://scripts/CoonMovement.gd" id="6_bhtm4"]
 [ext_resource type="Script" uid="uid://b4dwolbvt8our" path="res://addons/godot_state_charts/history_state.gd" id="6_lecfq"]
+[ext_resource type="Script" uid="uid://w4alis18y2m2" path="res://scripts/CoonCameraComponent.gd" id="8_gfjo4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ku830"]
 
@@ -74,10 +75,17 @@ default_state = NodePath("../Grounded")
 script = ExtResource("6_bhtm4")
 body = NodePath("..")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(0.990447, 0, 0.137894, -0.028971, 0.977681, 0.208089, -0.134816, -0.210096, 0.968341, 0, 1.37294, 0)
+[node name="SpringArm3D" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody")]
+transform = Transform3D(0.907558, -0.129765, 0.399375, -0.224965, 0.652822, 0.723336, -0.354584, -0.746314, 0.563281, 0, 1.37294, 0)
 shape = SubResource("SphereShape3D_lecfq")
-spring_length = 2.635
+spring_length = 2.0
+script = ExtResource("8_gfjo4")
+coonCam = NodePath("../Camera3D")
+coonBody = NodePath("..")
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
-transform = Transform3D(0.990447, -0.00838941, -0.137639, -4.95175e-09, 0.998148, -0.0608395, 0.137894, 0.0602583, 0.988612, 0, 0, 0)
+[node name="SpringTarget" type="Node3D" parent="SpringArm3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37294, 0)
+top_level = true
+fov = 95.0

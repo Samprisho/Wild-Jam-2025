@@ -19,12 +19,10 @@ var collisionSphere: SphereShape3D
 @onready var initalMass: float = mass
 var initalFloorCastY: float
 
+var ownedCoon: Coon
+
 func _ready() -> void:
 	collisionSphere = collider.shape as SphereShape3D
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Respawn"):
-		get_tree().reload_current_scene()
 
 func _physics_process(delta: float) -> void:
 	var input = Vector2(

@@ -10,7 +10,6 @@ class_name CameraControls
 @export var targetNode: Node3D
 @export var ball: Ball
 ## Controls how sensitive mouse motion is
-@export var mouseSensitivity: float = 15
 @export var sensitivityCurve: Curve
 @export var followSpeed: float = 7
 @export var rotSpeed: float = 40
@@ -34,7 +33,7 @@ func _process(delta: float) -> void:
 	)
 	var curr: Vector3 = Vector3()
 	var velocity = Input.get_last_mouse_velocity()* -1
-	var result = delta * mouseSensitivity * velocity * 0.01
+	var result = delta * ClientSettings.ballMouseSensivity * velocity * 0.01
 	curr = springArm.rotation_degrees
 	
 	springArm.rotation_degrees.x += result.y
