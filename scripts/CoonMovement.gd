@@ -2,17 +2,21 @@ extends Node
 class_name CoonMovement
 
 @export var body: Coon
+@export var camera: CoonCameraComponent
+
+@export var stateChart: StateChart
 
 @export_category("Grounded")
 @export var ground_acceleration: float = 15
-@export var ground_counteract_factor: float = 2.5
+@export var ground_counteract_factor: float = 5
 @export var ground_friction: float = 15
 @export var max_ground_speed: float = 5
-@export var jump_veloctiy: float = 6
+@export var jump_veloctiy: float = 6.8
 
 @export_category("Airborne")
-@export var air_acceleration: float = 6
-@export var air_slowdown_factor: float = 2
+@export var air_acceleration: float = 18
+@export var air_slowdown_factor: float = 75
+@export var air_drag: float = 10
 @export var max_air_speed: float = 80
 
 @export_category("Wallrun")
@@ -21,7 +25,7 @@ class_name CoonMovement
 @export var max_wallrun_speed: float = 30
 
 
-var stateChart: StateChart
+
 var collisionMesh: CapsuleMesh
 var ownedBall: Ball
 
@@ -99,18 +103,32 @@ func is_inputting_directions(input: CoonInputContainer) -> bool:
 
 func simulate(input: CoonInputContainer, state: CoonStateContainer):
 	var newState: CoonStateContainer
-	
+
+
 	if state.stateOnFloor:
 		newState = ground_simulate(input, state)
 	else:
 		newState = air_simulate(input, state)
 	
-	print(newState)
+	if state.stateOnFloor == true and newState.stateOnFloor == false:
+		print("sent jump event")
+		stateChart.send_event("jump")
+
+	
+	if state.stateOnFloor == false and newState.stateOnFloor == true:
+		print("sent grounded event")
+		stateChart.send_event("grounded")
+
+	if state.stateOnFloor == false and newState.stateOnFloor == false and \
+	  sign(state.stateVelocity.y) != sign(newState.stateVelocity.y):
+		print("staled")
+		stateChart.send_event("stale") 
+		
 	ClientUi.showPos.emit(newState.to_string())
 
 
 func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
-	var dir = normalized_dir_from_axis(input.inputaxis)
+	var dir := normalized_dir_from_axis(input.inputaxis)
 
 	body.position = state.statePosition
 	body.velocity = state.stateVelocity
@@ -118,12 +136,23 @@ func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	body.velocity.y -= GRAVITY * get_physics_process_delta_time()
 
 	var velWithouty := Vector3(body.velocity.x, 0, body.velocity.z) .normalized()
-	print(air_acceleration - (clamp(velWithouty.normalized().dot(dir), 0, 1) * air_acceleration))
+	
+	var airStrafe = air_acceleration - (clamp(velWithouty.normalized().dot(dir), 0, 1) * air_acceleration )
+	var backwardBrake = -clamp(dir.dot(velWithouty), -1, 0) * air_slowdown_factor
+	
+	
+	body.velocity.x = body.velocity.move_toward(Vector3.ZERO, get_physics_process_delta_time() * backwardBrake).x
+	body.velocity.z = body.velocity.move_toward(Vector3.ZERO, get_physics_process_delta_time() * backwardBrake).z
 	
 	body.velocity += \
 		dir * \
-		(air_acceleration - (clamp(velWithouty.normalized().dot(dir), 0, 1) * air_acceleration)) \
+		# Air strafe
+		airStrafe \
 		* get_physics_process_delta_time()
+		
+	if velWithouty.length() > max_ground_speed:
+		body.velocity.x = body.velocity.move_toward(Vector3.ZERO, get_physics_process_delta_time() * air_drag).x
+		body.velocity.z = body.velocity.move_toward(Vector3.ZERO, get_physics_process_delta_time() * air_drag).z
 
 	body.move_and_slide()
 	return CoonStateContainer.new(body)
@@ -152,14 +181,12 @@ func ground_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	if input.attemptingJump:
 		print("Jump")
 		body.velocity.y += jump_veloctiy
-
+	
 	body.move_and_slide()
 	return CoonStateContainer.new(body)
 
 
 func wallrun_simulate(input: CoonInputContainer, state: CoonStateContainer):
-	
 	# TODO: Implement Wallrun
-
 	body.move_and_slide()
 	return CoonStateContainer.new(body)

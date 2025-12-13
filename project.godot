@@ -90,6 +90,13 @@ Pause={
 ]
 }
 
+[input_devices]
+
+buffering/agile_event_flushing=true
+
 [physics]
 
+common/physics_ticks_per_second=66
+2d/physics_engine="Dummy"
+3d/default_gravity=12.0
 2d/default_gravity=1296.04

@@ -34,14 +34,18 @@ metadata/_custom_type_script = "uid://couw105c3bde4"
 script = ExtResource("3_rowf5")
 initial_state = NodePath("Grounded")
 
+[node name="History" type="Node" parent="StateChart/Root"]
+script = ExtResource("6_lecfq")
+default_state = NodePath("../Grounded")
+
 [node name="Grounded" type="Node" parent="StateChart/Root"]
 script = ExtResource("4_nu555")
 
 [node name="On Jump" type="Node" parent="StateChart/Root/Grounded"]
 script = ExtResource("5_t5b5t")
-to = NodePath("../../Airborne")
+to = NodePath("../../Rising")
 event = &"jump"
-delay_in_seconds = "0.7"
+delay_in_seconds = "0"
 
 [node name="On Airborne" type="Node" parent="StateChart/Root/Grounded"]
 script = ExtResource("5_t5b5t")
@@ -67,23 +71,41 @@ to = NodePath("../../Airborne")
 event = &"walljump"
 delay_in_seconds = "0.0"
 
-[node name="History" type="Node" parent="StateChart/Root"]
-script = ExtResource("6_lecfq")
-default_state = NodePath("../Grounded")
+[node name="Rising" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_nu555")
 
-[node name="CoonMovementComponent" type="Node" parent="." node_paths=PackedStringArray("body")]
+[node name="On Stale" type="Node" parent="StateChart/Root/Rising"]
+script = ExtResource("5_t5b5t")
+to = NodePath("../../Airborne")
+event = &"stale"
+delay_in_seconds = "0"
+
+[node name="On Grounded" type="Node" parent="StateChart/Root/Rising"]
+script = ExtResource("5_t5b5t")
+to = NodePath("../../Grounded")
+event = &"grounded"
+delay_in_seconds = "0.0"
+
+[node name="CoonMovementComponent" type="Node" parent="." node_paths=PackedStringArray("body", "camera", "stateChart")]
 script = ExtResource("6_bhtm4")
 body = NodePath("..")
+camera = NodePath("../CameraComponent")
+stateChart = NodePath("../StateChart")
+ground_friction = 25.0
 
-[node name="SpringArm3D" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody")]
-transform = Transform3D(0.907558, -0.129765, 0.399375, -0.224965, 0.652822, 0.723336, -0.354584, -0.746314, 0.563281, 0, 1.37294, 0)
+[node name="CameraComponent" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody", "staticTarget", "risingState")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.739071, 1.78611, 0)
 shape = SubResource("SphereShape3D_lecfq")
 spring_length = 2.0
 script = ExtResource("8_gfjo4")
 coonCam = NodePath("../Camera3D")
 coonBody = NodePath("..")
+staticTarget = NodePath("StaticTarget")
+risingState = NodePath("../StateChart/Root/Rising")
 
-[node name="SpringTarget" type="Node3D" parent="SpringArm3D"]
+[node name="SpringTarget" type="Node3D" parent="CameraComponent"]
+
+[node name="StaticTarget" type="Node3D" parent="CameraComponent"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37294, 0)

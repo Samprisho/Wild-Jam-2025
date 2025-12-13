@@ -1,9 +1,8 @@
 extends Node
 
-var mouseSensivityX: float = 0.5
-var mouseSensivityY: float = 0.3
+var mouseSensivityX: float = 0.1
+var mouseSensivityY: float = 0.07
 
-var ballMouseSensivity: float = 15
+var ballMouseSensivity: float = 90
 
-var coonCamLerpSpeed: float = 100
-
+var coonCamLerpSpeed: float = 110
