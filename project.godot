@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Wild Jam 2025"
-run/main_scene="uid://b18aotyeqm04y"
+run/main_scene="uid://bfchyqkgye64x"
 config/features=PackedStringArray("4.4")
 config/icon="res://icon.svg"
 
@@ -98,5 +98,5 @@ buffering/agile_event_flushing=true
 
 common/physics_ticks_per_second=66
 2d/physics_engine="Dummy"
-3d/default_gravity=12.0
+3d/default_gravity=17.115
 2d/default_gravity=1296.04

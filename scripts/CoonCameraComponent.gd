@@ -31,7 +31,6 @@ func _input(event: InputEvent) -> void:
 		var mouseVel = -event.relative
 		rotation_degrees.x += mouseVel.y * ClientSettings.mouseSensivityY
 		rotation_degrees.x = clamp(rotation_degrees.x, -80, 80)
-		
 		coonBody.rotation_degrees.y += mouseVel.x * ClientSettings.mouseSensivityX
 
 func _process(delta):
@@ -43,12 +42,14 @@ func _process(delta):
 	
 	targetNode.position = staticTarget.position + offset
 	
-	coonCam.rotation_degrees.x = rotation_degrees.x
-	coonCam.rotation_degrees.y = coonBody.rotation_degrees.y
+	coonCam.global_rotation_degrees.x = rotation_degrees.x
+	coonCam.global_rotation_degrees.y = coonBody.rotation_degrees.y
 	coonCam.global_position.x = targetNode.global_position.x
 	coonCam.global_position.z = targetNode.global_position.z
 	coonCam.global_position.y = targetNode.global_position.y
 
+func make_active():
+	coonCam.make_current()
 
 func _on_rising():
 	allowYChange = false

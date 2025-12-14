@@ -22,7 +22,20 @@ var targetRot: Vector3 = Vector3()
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	targetRot = springArm.rotation
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		var curr: Vector3 = Vector3()
+		var velocity = -event.relative
+		var result = ClientSettings.ballMouseSensivity * velocity
+		curr = springArm.rotation_degrees
+		
+		springArm.rotation_degrees.x += result.y
+		springArm.rotation_degrees.y += result.x
+		
+
+func make_active() -> void:
+	camera.make_current()
 
 func _process(delta: float) -> void:
 	springArm.spring_length = lerp(springArm.spring_length, clamp(targetNode.linear_velocity.length(),springArmMinDistance + ball.size, springArmMaxDistance + ball.size), delta * springZoomSpeed)
@@ -31,23 +44,4 @@ func _process(delta: float) -> void:
 		targetNode.global_position,
 		delta * followSpeed
 	)
-	var curr: Vector3 = Vector3()
-	var velocity = Input.get_last_mouse_velocity()* -1
-	var result = delta * ClientSettings.ballMouseSensivity * velocity * 0.01
-	curr = springArm.rotation_degrees
 	
-	springArm.rotation_degrees.x += result.y
-	springArm.rotation_degrees.y += result.x
-	
-	targetRot = springArm.rotation_degrees
-	
-	springArm.rotation_degrees = lerp(
-		curr,
-		targetRot,
-		delta * (rotSpeed + abs(curr.length() - targetRot.length()))
-	)
-	
-	springArm.rotation_degrees = springArm.rotation_degrees.clamp(
-		Vector3(-rotClamp, -9999999, 0),
-		Vector3(rotClamp, 99999999, 0),
-	)

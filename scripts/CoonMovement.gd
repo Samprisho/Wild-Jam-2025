@@ -11,7 +11,7 @@ class_name CoonMovement
 @export var ground_counteract_factor: float = 5
 @export var ground_friction: float = 15
 @export var max_ground_speed: float = 5
-@export var jump_veloctiy: float = 6.8
+@export var jump_veloctiy: float = 9
 
 @export_category("Airborne")
 @export var air_acceleration: float = 18
@@ -70,6 +70,9 @@ func _process(delta):
 
 	
 func _physics_process(_delta: float) -> void:
+	if body.relatedBall.coonInside:
+		return
+	
 	var inputDir: Vector2 = Vector2(
 		# Remember, -Z is forward, and Z is backward
 		Input.get_axis("Forward", "Backward"),
