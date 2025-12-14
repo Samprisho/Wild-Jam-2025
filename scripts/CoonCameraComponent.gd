@@ -38,7 +38,7 @@ func _process(delta):
 	if ClientControls.paused:
 		return
 		
-	yOffset = lerp(yOffset, coonBody.velocity.y * 0.05, delta * 20)
+	yOffset = lerp(yOffset, coonBody.velocity.y * 0.03, delta * 20)
 	offset.y = yOffset
 	
 	targetNode.position = staticTarget.position + offset

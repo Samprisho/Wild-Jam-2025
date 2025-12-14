@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b18aotyeqm04y"]
+[gd_scene load_steps=12 format=3 uid="uid://b18aotyeqm04y"]
 
 [ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/the_coon.tscn" id="1_mvjfa"]
+[ext_resource type="Script" uid="uid://di1slds1y33su" path="res://scripts/moving_platform.gd" id="2_1kprn"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_gfvr5"]
 left_to_right = 1.0
@@ -16,6 +17,38 @@ sky_material = SubResource("ProceduralSkyMaterial_mvjfa")
 [sub_resource type="Environment" id="Environment_1kprn"]
 background_mode = 2
 sky = SubResource("Sky_paxxb")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mvjfa"]
+size = Vector3(2.79858, 0.269531, 2.39355)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1kprn"]
+
+[sub_resource type="Animation" id="Animation_1kprn"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+
+[sub_resource type="Animation" id="Animation_mvjfa"]
+resource_name = "move"
+length = 6.0
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -4.28969, 0, -0.585124, 1, 1, -4.28969, 0, -0.585124, 2.96667, 1, -4.28969, 5.20474, -0.585124, 3.92277, 1, -4.28969, 5.20474, -0.585124, 5.95918, 1, -4.28969, 0, -0.585124)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_evesr"]
+_data = {
+&"RESET": SubResource("Animation_1kprn"),
+&"move": SubResource("Animation_mvjfa")
+}
 
 [node name="Node3D" type="Node3D"]
 
@@ -71,3 +104,20 @@ transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1kprn")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="." node_paths=PackedStringArray("anim")]
+script = ExtResource("2_1kprn")
+anim = NodePath("AnimationPlayer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+shape = SubResource("BoxShape3D_mvjfa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D"]
+transform = Transform3D(2.78975, 0, 0, 0, 0.265425, 0, 0, 0, 2.38527, 0, 0, 0)
+mesh = SubResource("BoxMesh_1kprn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody3D"]
+deterministic = true
+libraries = {
+&"": SubResource("AnimationLibrary_evesr")
+}
