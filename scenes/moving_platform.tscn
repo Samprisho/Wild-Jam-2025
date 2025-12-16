@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://db2jx73sb1a0o"]
+
+[ext_resource type="Script" uid="uid://btxdeqyooxy3f" path="res://scripts/PlatformTool.gd" id="1_ms375"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ms375"]
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1tdcd"]
+size = Vector3(1, 0.3, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_ms375"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, -10),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="Platform" type="AnimatableBody3D"]
+script = ExtResource("1_ms375")
+mesh = SubResource("BoxMesh_ms375")
+collision = SubResource("BoxShape3D_1tdcd")
+path = SubResource("Curve3D_ms375")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_ms375")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("BoxShape3D_1tdcd")
+
+[node name="Path3D" type="Path3D" parent="."]
+unique_name_in_owner = true
+curve = SubResource("Curve3D_ms375")

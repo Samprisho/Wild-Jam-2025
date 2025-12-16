@@ -99,7 +99,7 @@ func switch_to_ball() -> bool:
 	return true
 
 func on_floor() -> bool:
-	var floor: StaticBody3D = get_colliding_bodies()[0] if get_colliding_bodies().size() > 0 else null
+	var floor: PhysicsBody3D = get_colliding_bodies()[0] if get_colliding_bodies().size() > 0 else null
 	if floor:
 		if floor.collision_layer == 1:
 			return true

@@ -101,7 +101,6 @@ script = ExtResource("6_bhtm4")
 body = NodePath("..")
 camera = NodePath("../CameraComponent")
 stateChart = NodePath("../StateChart")
-ground_friction = 25.0
 
 [node name="CameraComponent" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody", "staticTarget", "risingState")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.739071, 1.78611, 0)

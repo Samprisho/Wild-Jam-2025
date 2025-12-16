@@ -22,7 +22,7 @@ radius = 0.1
 
 [node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("springArm", "camComponent")]
 collision_layer = 3
-mass = 0.5
+mass = 200.0
 physics_material_override = ExtResource("1_r2clb")
 gravity_scale = 1.3
 contact_monitor = true

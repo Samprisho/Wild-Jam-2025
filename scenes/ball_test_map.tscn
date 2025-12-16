@@ -1,9 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://bfchyqkgye64x"]
+[gd_scene load_steps=18 format=4 uid="uid://bfchyqkgye64x"]
 
 [ext_resource type="PackedScene" uid="uid://cdcgi4ad58ak5" path="res://scenes/the_ball.tscn" id="1_7p4tv"]
 [ext_resource type="PhysicsMaterial" uid="uid://jsnkm0bavc12" path="res://resources/Physical Mats/grass_phys_mat.tres" id="2_sg5sg"]
-[ext_resource type="PackedScene" uid="uid://dn7emw3uawrka" path="res://scenes/leaf_pile.tscn" id="3_1i1ri"]
 [ext_resource type="PackedScene" uid="uid://cmcfwlp2es81a" path="res://scenes/landscape.tscn" id="4_4o2ky"]
+[ext_resource type="PackedScene" uid="uid://db2jx73sb1a0o" path="res://scenes/moving_platform.tscn" id="5_1i1ri"]
 [ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/the_coon.tscn" id="5_sg5sg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4xfga"]
@@ -38,6 +38,24 @@ sky = SubResource("Sky_7p4tv")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1i1ri"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_4o2ky"]
+top_radius = 1.13
+height = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1fooq"]
+height = 0.2
+radius = 1.13
+
+[sub_resource type="Curve3D" id="Curve3D_sg5sg"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.06, 6.25, 0, 0, 0, 0, 0, 0, -6.44, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_1i1ri"]
+
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -50,7 +68,7 @@ near = 0.02
 far = 4042.0
 
 [node name="RigidBody3D" parent="." node_paths=PackedStringArray("ownedCoon") instance=ExtResource("1_7p4tv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.32068, 0)
 mass = 5.579
 physics_material_override = SubResource("PhysicsMaterial_4xfga")
 ownedCoon = NodePath("../CharacterBody3D")
@@ -71,45 +89,6 @@ shape = SubResource("ConcavePolygonShape3D_gldc4")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gldc4")
 
-[node name="Node3D" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -2)
-
-[node name="Node3D2" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
-value = 0.2
-
-[node name="Node3D3" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -3)
-value = 0.2
-
-[node name="Node3D4" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -3)
-value = 0.2
-
-[node name="Node3D5" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -2)
-value = 0.2
-
-[node name="Node3D6" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
-value = 0.2
-
-[node name="Node3D7" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -3)
-value = 0.2
-
-[node name="Node3D8" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -2)
-value = 0.2
-
-[node name="Node3D9" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -3)
-value = 0.2
-
-[node name="Node3D10" parent="." instance=ExtResource("3_1i1ri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -3)
-value = 0.2
-
 [node name="landscape" parent="." instance=ExtResource("4_4o2ky")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -41, 14, -17)
 
@@ -127,3 +106,15 @@ mesh = SubResource("SphereMesh_sg5sg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
 transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, 0, 0)
 shape = SubResource("SphereShape3D_1i1ri")
+
+[node name="Platform" parent="." instance=ExtResource("5_1i1ri")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -6, 1, -8)
+mesh = SubResource("CylinderMesh_4o2ky")
+collision = SubResource("CylinderShape3D_1fooq")
+path = SubResource("Curve3D_sg5sg")
+transitionType = 11
+duration = 6.0
+
+[node name="Platform2" parent="." instance=ExtResource("5_1i1ri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9, 2.23119, -16.5354)
+path = SubResource("Curve3D_1i1ri")
