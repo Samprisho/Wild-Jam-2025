@@ -8,7 +8,7 @@ class_name Coon
 @onready var movement: CoonMovement = $CoonMovementComponent
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ToggleMode"):
+	if Input.is_action_just_pressed("ToggleMode") and relatedBall:
 		var distance = relatedBall.global_position.distance_to(global_position)
 		print("embarked: ", distance)
 		if distance < embarkRange and not relatedBall.coonInside:

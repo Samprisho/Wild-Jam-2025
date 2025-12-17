@@ -27,6 +27,8 @@ func dont_follow(time: float):
 	pass
 
 func _input(event: InputEvent) -> void:
+	if ClientControls.paused:
+		return
 	if event is InputEventMouseMotion:
 		var mouseVel = -event.relative
 		rotation_degrees.x += mouseVel.y * ClientSettings.mouseSensivityY

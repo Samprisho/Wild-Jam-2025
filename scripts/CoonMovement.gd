@@ -33,7 +33,6 @@ enum EMovementState{
 	MANTLE
 }
 var collisionMesh: CapsuleMesh
-var ownedBall: Ball
 
 var clientRotation: Vector3 = Vector3.ZERO
 var GRAVITY: float = ProjectSettings.get("physics/3d/default_gravity")
@@ -47,6 +46,8 @@ var lastInput: CoonInputContainer
 var timeStamp: int = 0
 
 class CoonStateContainer:
+	
+
 	func _init(body:Coon) -> void:
 		self.statePosition = body.position
 		self.stateVelocity = body.velocity
@@ -87,8 +88,12 @@ class CoonInputContainer:
 
 	
 func _physics_process(_delta: float) -> void:
-	if body.relatedBall.coonInside:
-		return
+	if body.relatedBall:
+		if body.relatedBall.coonInside:
+			return
+			
+	if ClientControls.paused:
+			return
 	
 	clear_past_history()
 	

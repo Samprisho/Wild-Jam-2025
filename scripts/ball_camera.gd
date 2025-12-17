@@ -24,6 +24,9 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
+	if ClientControls.paused:
+		return
+	
 	if event is InputEventMouseMotion:
 		var curr: Vector3 = Vector3()
 		var velocity = -event.relative
@@ -31,7 +34,10 @@ func _input(event: InputEvent) -> void:
 		curr = springArm.rotation_degrees
 		
 		springArm.rotation_degrees.x += result.y
+		
+		springArm.rotation_degrees.x = clamp(springArm.rotation_degrees.x, -80 , 80)
 		springArm.rotation_degrees.y += result.x
+		
 		
 
 func make_active() -> void:
