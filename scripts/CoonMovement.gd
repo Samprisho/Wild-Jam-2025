@@ -41,6 +41,9 @@ var GRAVITY: float = ProjectSettings.get("physics/3d/default_gravity")
 var pastInputs = {}
 var pastStates = {}
 
+var lastState: CoonStateContainer
+var lastInput: CoonInputContainer
+
 var timeStamp: int = 0
 
 class CoonStateContainer:
@@ -84,11 +87,10 @@ class CoonInputContainer:
 
 	
 func _physics_process(_delta: float) -> void:
-
-	clear_past_history()
-	
 	if body.relatedBall.coonInside:
 		return
+	
+	clear_past_history()
 	
 	var inputDir: Vector2 = Vector2(
 		# Remember, -Z is forward, and Z is backward
@@ -102,12 +104,15 @@ func _physics_process(_delta: float) -> void:
 
 	var input = CoonInputContainer.new(inputDir, jumping, crouching)
 	pastInputs[timeStamp] = input
+	lastInput = input
 	
 	print(pastInputs.size())
 	
 	var state = CoonStateContainer.new(body) if pastStates.size() == 0 else pastStates.get(timeStamp - 1)
 	var newState = simulate(input, state)
 	pastStates[timeStamp] = newState
+	
+	lastState = newState
 	timeStamp += 1
 
 

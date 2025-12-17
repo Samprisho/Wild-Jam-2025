@@ -17,14 +17,13 @@ func _input(event: InputEvent) -> void:
 
 func switch_to_coon_mode() -> bool:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	global_position = relatedBall.global_position + Vector3(0, relatedBall.size * 1.2, 0)
 	visible = true
 	camera.make_active()
 	relatedBall.coonInside = false
 
+	movement.lastState.statePosition = relatedBall.global_position + Vector3(0, relatedBall.size * 1.2, 0)
 	global_rotation.y = relatedBall.springArm.global_rotation.y
-	
-	velocity = relatedBall.linear_velocity + Vector3.UP * movement.jump_veloctiy
+	movement.lastState.stateVelocity = relatedBall.linear_velocity + Vector3.UP * movement.jump_veloctiy
 	
 	print("coon mode!")
 	
