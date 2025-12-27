@@ -23,7 +23,7 @@ func switch_to_coon_mode() -> bool:
 
 	movement.lastState.statePosition = relatedBall.global_position + Vector3(0, relatedBall.size * 1.2, 0)
 	global_rotation.y = relatedBall.springArm.global_rotation.y
-	movement.lastState.stateVelocity = relatedBall.linear_velocity + Vector3.UP * movement.jump_veloctiy
+	movement.lastState.stateVelocity = relatedBall.velocity + Vector3.UP * movement.jump_veloctiy
 	
 	print("coon mode!")
 	

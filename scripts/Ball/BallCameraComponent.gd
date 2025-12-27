@@ -1,5 +1,5 @@
 extends Node
-class_name CameraControls
+class_name BallCameraComponent
 
 ## This component controls a given camera to rotate to mouse motion
 ##
@@ -38,13 +38,12 @@ func _input(event: InputEvent) -> void:
 		springArm.rotation_degrees.x = clamp(springArm.rotation_degrees.x, -80 , 80)
 		springArm.rotation_degrees.y += result.x
 		
-		
 
 func make_active() -> void:
 	camera.make_current()
 
 func _process(delta: float) -> void:
-	springArm.spring_length = lerp(springArm.spring_length, clamp(targetNode.linear_velocity.length(),springArmMinDistance + ball.size, springArmMaxDistance + ball.size), delta * springZoomSpeed)
+	springArm.spring_length = lerp(springArm.spring_length, clamp(ball.velocity.length(),springArmMinDistance + ball.size, springArmMaxDistance + ball.size), delta * springZoomSpeed)
 	springArm.get_parent().global_position = lerp(
 		springArm.get_parent().global_position,
 		targetNode.global_position,

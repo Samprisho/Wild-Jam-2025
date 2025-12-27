@@ -17,7 +17,7 @@ class_name CoonMovement
 @export var air_acceleration: float = 3
 @export var air_slowdown_factor: float = 10
 @export var air_drag: float = 10
-@export var max_air_speed: float = 5
+@export var max_air_speed: float = 20
 
 @export_category("Wallrun")
 @export var wallrun_acceleration: float = 5
@@ -191,14 +191,14 @@ func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	
 	body.velocity += wish_normal * accel_speed
 	
-	#if velWithouty.length() > max_air_speed:
-		#var target = Vector3.ZERO
-		#target.y = body.velocity.y
-		#
-		#body.velocity = body.velocity.move_toward(
-			#target, air_slowdown_factor * get_physics_process_delta_time()
-		#)
-		#print("slowing down")
+	if velWithouty.length() > max_air_speed:
+		var target = Vector3.ZERO
+		target.y = body.velocity.y
+		
+		body.velocity = body.velocity.move_toward(
+			target, air_slowdown_factor * get_physics_process_delta_time()
+		)
+		print("slowing down")
 	
 	body.velocity -= Vector3.UP * GRAVITY * delta
 

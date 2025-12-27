@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b18aotyeqm04y"]
 
-[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/the_coon.tscn" id="1_mvjfa"]
+[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/Characters/the_coon.tscn" id="1_mvjfa"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_gfvr5"]
 left_to_right = 1.0
@@ -28,10 +28,6 @@ size = Vector3(5.61694, 0.0947266, 10.7598)
 [node name="CSGBox3D4" type="CSGBox3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5733, 0, 3.14314)
 size = Vector3(5.61694, 0.0947266, 4.47353)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.8209, 0, 3.14314)
-size = Vector3(100.577, 0.0947266, 4.47353)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.44263, 0, 3.45453)

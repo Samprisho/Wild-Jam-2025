@@ -1,13 +1,11 @@
-[gd_scene load_steps=18 format=4 uid="uid://bfchyqkgye64x"]
+[gd_scene load_steps=16 format=4 uid="uid://xqg4nmn31mtd"]
 
-[ext_resource type="PackedScene" uid="uid://cdcgi4ad58ak5" path="res://scenes/the_ball.tscn" id="1_7p4tv"]
-[ext_resource type="PhysicsMaterial" uid="uid://jsnkm0bavc12" path="res://resources/Physical Mats/grass_phys_mat.tres" id="2_sg5sg"]
-[ext_resource type="PackedScene" uid="uid://cmcfwlp2es81a" path="res://scenes/landscape.tscn" id="4_4o2ky"]
-[ext_resource type="PackedScene" uid="uid://db2jx73sb1a0o" path="res://scenes/moving_platform.tscn" id="5_1i1ri"]
-[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/the_coon.tscn" id="5_sg5sg"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4xfga"]
-rough = true
+[ext_resource type="PhysicsMaterial" uid="uid://jsnkm0bavc12" path="res://resources/Physical Mats/grass_phys_mat.tres" id="1_csdga"]
+[ext_resource type="PackedScene" uid="uid://cmcfwlp2es81a" path="res://scenes/Assets/landscape.tscn" id="2_3wwu6"]
+[ext_resource type="PackedScene" uid="uid://db2jx73sb1a0o" path="res://scenes/Props/moving_platform.tscn" id="3_01l5h"]
+[ext_resource type="PackedScene" uid="uid://dl4wwdno3teag" path="res://scenes/Props/primitive_physics_prop.tscn" id="4_3wwu6"]
+[ext_resource type="PackedScene" uid="uid://f5q4vr55kvol" path="res://scenes/Characters/the_reworked_ball.tscn" id="5_01l5h"]
+[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/Characters/the_coon.tscn" id="6_3lq1p"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_paxxb"]
 _surfaces = [{
@@ -34,17 +32,13 @@ sky_material = SubResource("ProceduralSkyMaterial_4xfga")
 background_mode = 2
 sky = SubResource("Sky_7p4tv")
 
-[sub_resource type="SphereMesh" id="SphereMesh_sg5sg"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_1i1ri"]
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_4o2ky"]
 top_radius = 1.13
 height = 0.2
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1fooq"]
-height = 0.2
-radius = 1.13
+height = 0.101
+radius = 1.129
 
 [sub_resource type="Curve3D" id="Curve3D_sg5sg"]
 closed = true
@@ -62,20 +56,13 @@ point_count = 3
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 4, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, 0.353553, -0.612373, -6.61237, 4, -6.61237)
+transform = Transform3D(0.862664, 0.252888, -0.438017, 1.65474e-08, 0.866026, 0.499999, 0.505778, -0.431331, 0.747089, -10.7781, 4, -0.852595)
 size = 10.32
 near = 0.02
 far = 4042.0
 
-[node name="RigidBody3D" parent="." node_paths=PackedStringArray("ownedCoon") instance=ExtResource("1_7p4tv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.32068, 0)
-mass = 5.579
-physics_material_override = SubResource("PhysicsMaterial_4xfga")
-ownedCoon = NodePath("../CharacterBody3D")
-size = 3.0
-
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-physics_material_override = ExtResource("2_sg5sg")
+physics_material_override = ExtResource("1_csdga")
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0212145, -0.0101702, -0.00314999)
@@ -89,32 +76,94 @@ shape = SubResource("ConcavePolygonShape3D_gldc4")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gldc4")
 
-[node name="landscape" parent="." instance=ExtResource("4_4o2ky")]
+[node name="landscape" parent="." instance=ExtResource("2_3wwu6")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -41, 14, -17)
 
-[node name="CharacterBody3D" parent="." node_paths=PackedStringArray("relatedBall") instance=ExtResource("5_sg5sg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 0)
-relatedBall = NodePath("../RigidBody3D")
+[node name="PhysicsProps" type="Node3D" parent="."]
+process_mode = 4
+visible = false
 
-[node name="RigidBody3D2" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, -3)
+[node name="BasicPhysicsProp" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60236, 2.91481, -2.80922)
+primitive = 1
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2"]
-transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, 0, 0)
-mesh = SubResource("SphereMesh_sg5sg")
+[node name="BasicPhysicsProp2" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96622, 2.91481, -2.80922)
+primitive = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
-transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, 0, 0)
-shape = SubResource("SphereShape3D_1i1ri")
+[node name="BasicPhysicsProp3" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60236, 2.91481, -3.84329)
+primitive = 1
 
-[node name="Platform" parent="." instance=ExtResource("5_1i1ri")]
+[node name="BasicPhysicsProp4" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96622, 2.91481, -3.84329)
+primitive = 1
+
+[node name="BasicPhysicsProp5" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60236, 4.00461, -2.80922)
+primitive = 1
+
+[node name="BasicPhysicsProp6" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96622, 4.00461, -2.80922)
+primitive = 1
+
+[node name="BasicPhysicsProp7" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60236, 4.00461, -3.84329)
+primitive = 1
+
+[node name="BasicPhysicsProp9" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(-4.38076e-08, -1.0022, 0, 1.0022, -4.38076e-08, 0, 0, 0, 1.0022, 17.8761, 25.9014, -1.22387)
+mass = 30.236
+size = 2.06
+
+[node name="BasicPhysicsProp10" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1.0022, 0, 0, 0, 1.0022, 0, 0, 0, 1.0022, 1.95385, -3.35046, -15.9492)
+primitive = 1
+size = 1.71
+
+[node name="BasicPhysicsProp11" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1.0022, 0, 0, 0, 1.0022, 0, 0, 0, 1.0022, 3.74466, -3.35046, -15.9492)
+primitive = 1
+size = 1.71
+
+[node name="BasicPhysicsProp8" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
+transform = Transform3D(1.0022, 0, 0, 0, 1.0022, 0, 0, 0, 1.0022, -6.12226, 1.60078, -7.96163)
+mass = 43.288
+gravity_scale = 3.494
+can_sleep = false
+primitive = 1
+
+[node name="Platforms" type="Node3D" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("3_01l5h")]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -6, 1, -8)
 mesh = SubResource("CylinderMesh_4o2ky")
 collision = SubResource("CylinderShape3D_1fooq")
 path = SubResource("Curve3D_sg5sg")
-transitionType = 11
-duration = 6.0
+transitionType = 4
+duration = 12.0
 
-[node name="Platform2" parent="." instance=ExtResource("5_1i1ri")]
+[node name="Mesh" parent="Platforms/Platform" index="0"]
+mesh = SubResource("CylinderMesh_4o2ky")
+
+[node name="Collision" parent="Platforms/Platform" index="1"]
+transform = Transform3D(1, 0, 1.49012e-08, 0, 1, 0, -1.49012e-08, 0, 1, 0, 0.0491843, 0)
+shape = SubResource("CylinderShape3D_1fooq")
+
+[node name="Path3D" parent="Platforms/Platform" index="2"]
+curve = SubResource("Curve3D_sg5sg")
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("3_01l5h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9, 2.23119, -16.5354)
 path = SubResource("Curve3D_1i1ri")
+
+[node name="Ball" parent="." node_paths=PackedStringArray("ownedCoon") instance=ExtResource("5_01l5h")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 3, 5, -2)
+ballOnlyMode = false
+ownedCoon = NodePath("../CharacterBody3D")
+
+[node name="CharacterBody3D" parent="." node_paths=PackedStringArray("relatedBall") instance=ExtResource("6_3lq1p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
+relatedBall = NodePath("../Ball")
+
+[editable path="Platforms/Platform"]

@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://dr64bo2d36v0n"]
 
-[ext_resource type="Script" uid="uid://biykxsftwgexj" path="res://scripts/coon.gd" id="1_bhtm4"]
+[ext_resource type="Script" uid="uid://biykxsftwgexj" path="res://scripts/Coon/Coon.gd" id="1_bhtm4"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_gvuuu"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_rowf5"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_nu555"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_t5b5t"]
-[ext_resource type="Script" uid="uid://bbi77rt2a4od5" path="res://scripts/CoonMovement.gd" id="6_bhtm4"]
+[ext_resource type="Script" uid="uid://bbi77rt2a4od5" path="res://scripts/Coon/CoonMovement.gd" id="6_bhtm4"]
 [ext_resource type="Script" uid="uid://b4dwolbvt8our" path="res://addons/godot_state_charts/history_state.gd" id="6_lecfq"]
-[ext_resource type="Script" uid="uid://w4alis18y2m2" path="res://scripts/CoonCameraComponent.gd" id="8_gfjo4"]
+[ext_resource type="Script" uid="uid://w4alis18y2m2" path="res://scripts/Coon/CoonCameraComponent.gd" id="8_gfjo4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ku830"]
 

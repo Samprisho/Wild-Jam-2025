@@ -20,12 +20,6 @@ func _ready() -> void:
 func add_offset(offset: Vector3):
 	self.offset += offset
 
-func jumped(atZ: float):
-	pass
-
-func dont_follow(time: float):
-	pass
-
 func _input(event: InputEvent) -> void:
 	if ClientControls.paused:
 		return

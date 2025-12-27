@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dn7emw3uawrka"]
 
-[ext_resource type="Script" uid="uid://bxv6aw7va5thq" path="res://scripts/leaf_pile.gd" id="1_d7rby"]
+[ext_resource type="Script" uid="uid://bxv6aw7va5thq" path="res://scripts/Props/leaf_pile.gd" id="1_d7rby"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_jx87t"]
 radius = 0.85
@@ -13,14 +13,17 @@ is_hemisphere = true
 radius = 1.0
 
 [node name="Node3D" type="Node3D" node_paths=PackedStringArray("area")]
+transform = Transform3D(0.5, 0, 0, 0, 0.25, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_d7rby")
 area = NodePath("Area3D")
+value = 0.5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 mesh = SubResource("SphereMesh_jx87t")
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 collision_layer = 4
 collision_mask = 2
 

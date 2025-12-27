@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwuw3nd1kvjh7"]
 
-[ext_resource type="Script" uid="uid://ca6gou5k3dlkg" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="Script" uid="uid://ca6gou5k3dlkg" path="res://scripts/UI/hud.gd" id="1_ahhtf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_toqtt"]
 font_size = 18
