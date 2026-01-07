@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://tongitlm6lci" path="res://scripts/Ball/BallMovementComponent.gd" id="5_fai0k"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5ubf0"]
-radius = 1.0
+radius = 0.75
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ds8po"]
 render_priority = 0
@@ -32,13 +32,13 @@ ballOnlyMode = true
 springArm = NodePath("Node3D/SpringArm3D")
 camComponent = NodePath("CameraControl")
 movementComponent = NodePath("BallMovementComponent")
-size = 2.0
+size = 1.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_5ubf0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 mesh = SubResource("SphereMesh_facm7")
 
 [node name="Node3D" type="Node3D" parent="."]

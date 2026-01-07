@@ -1,6 +1,6 @@
 shader_type spatial;
 
-const float stripWidth = 0.45;
+const float stripWidth = 0.45f;
 const float offset = 0.f;
 
 void vertex() {
@@ -8,8 +8,12 @@ void vertex() {
 }
 
 void fragment() {
+	
+	
+	
+	float dotprod = dot(VERTEX, vec3(0, 0, 1));
 
-	float wave = sin(TIME) * 5.f;
+	float wave = abs( sin(TIME * 0.5)) * 0.5f;
 	float width = stripWidth;
 
 	float stripUp = step(width, 1.f - UV.y + offset);
@@ -17,6 +21,10 @@ void fragment() {
 
 	float stripLeft = step(width, 1.f - UV.x);
 	float stripRight = step(width, UV.x);
+	
+	//ALBEDO = vec3(
+		//1.f - dotprod
+	//);
 
 	ALBEDO = vec3(
 		(1.f - (stripUp * stripDown)) * (1.f - (stripLeft * stripRight))

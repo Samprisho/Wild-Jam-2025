@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://wmhhyv0urtrj"]
+
+[sub_resource type="GDScript" id="GDScript_wjfyb"]
+resource_name = "test_goal"
+script/source = "extends PropActivator
+@export var mesh: MeshInstance3D
+
+func _ready() -> void:
+	super()
+	
+	var mat: StandardMaterial3D = mesh.mesh.material
+	
+	prop_activate.connect(
+		func ():
+			if mat:
+				mat.albedo_color = Color(0,1,0)
+	)
+	
+	prop_deactivate.connect(
+		func ():
+			if mat:
+				mat.albedo_color = Color(1,0,0)
+	)
+	
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjfyb"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjfyb"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_wjfyb")
+
+[node name="Condition Test" type="Node3D" node_paths=PackedStringArray("mesh")]
+script = SubResource("GDScript_wjfyb")
+mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_wjfyb")

@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://cr422lad47gaj"]
+
+[ext_resource type="Script" uid="uid://bm61ogup21rfx" path="res://scripts/Props/pressure_plate.gd" id="1_50iao"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vwv40"]
+height = 0.157727
+radius = 1.09668
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50iao"]
+resource_local_to_scene = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_50iao"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_50iao")
+top_radius = 1.097
+bottom_radius = 1.097
+height = 0.29
+
+[node name="Pressure Plate" type="Node3D" node_paths=PackedStringArray("rigid", "mesh")]
+script = ExtResource("1_50iao")
+rigid = NodePath("SliderJoint3D/RigidBody3D")
+mesh = NodePath("SliderJoint3D/RigidBody3D/MeshInstance3D")
+
+[node name="SliderJoint3D" type="SliderJoint3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, -0.126628, 0)
+node_b = NodePath("RigidBody3D")
+linear_limit/upper_distance = 0.03
+linear_limit/lower_distance = -0.03
+linear_limit/damping = 1.92
+
+[node name="RigidBody3D" type="RigidBody3D" parent="SliderJoint3D"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 5.0
+gravity_scale = 0.0
+can_sleep = false
+constant_force = Vector3(0, 20, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SliderJoint3D/RigidBody3D"]
+shape = SubResource("CylinderShape3D_vwv40")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SliderJoint3D/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.62746e-09, 0.0643707, 0)
+mesh = SubResource("CylinderMesh_50iao")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00448698, -0.00589988, 0)
+radius = 1.83594
+height = 0.434326
+sides = 15
+cone = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0133607, 0)
+operation = 2
+radius = 1.12158
+height = 0.626587
+sides = 32

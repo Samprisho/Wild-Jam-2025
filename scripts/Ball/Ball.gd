@@ -61,7 +61,8 @@ func _physics_process(delta: float) -> void:
 		var speed = velocity.length() / size
 		var angVel = speed * rot.normalized()
 		
-		$MeshInstance3D.rotate(angVel.normalized(), angVel.length() * delta)
+		if angVel.length() > 0:
+			$MeshInstance3D.rotate(angVel.normalized(), angVel.length() * delta)
 
 func reset_collision_shape():
 	$MeshInstance3D.scale = Vector3(size, size, size)

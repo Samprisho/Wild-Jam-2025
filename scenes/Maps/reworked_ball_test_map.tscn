@@ -25,12 +25,12 @@ data = PackedVector3Array(5, 1, 5, 5, 1, 3, 5, 0, 3, -5, -0.5, 3, -5, -1, 3, 5, 
 sky_curve = 0.135188
 ground_curve = 0.101965
 
-[sub_resource type="Sky" id="Sky_7p4tv"]
+[sub_resource type="Sky" id="Sky_3lq1p"]
 sky_material = SubResource("ProceduralSkyMaterial_4xfga")
 
 [sub_resource type="Environment" id="Environment_gldc4"]
 background_mode = 2
-sky = SubResource("Sky_7p4tv")
+sky = SubResource("Sky_3lq1p")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_4o2ky"]
 top_radius = 1.13

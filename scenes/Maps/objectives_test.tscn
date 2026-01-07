@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://ytufuwopx78e"]
+
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_ewlnf"]
+[ext_resource type="Material" uid="uid://brj2jayoo0l0d" path="res://addons/prototype_mini_bundle/M_prototype_blue.tres" id="2_nlnsu"]
+[ext_resource type="Material" uid="uid://1nvrnylcajfg" path="res://addons/prototype_mini_bundle/M_prototype_red.tres" id="3_rqjlu"]
+[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/Characters/the_coon.tscn" id="3_u2scj"]
+[ext_resource type="PackedScene" uid="uid://dl4wwdno3teag" path="res://scenes/Props/primitive_physics_prop.tscn" id="4_nlnsu"]
+[ext_resource type="PackedScene" uid="uid://cr422lad47gaj" path="res://scenes/Props/pressure_plate.tscn" id="5_u2scj"]
+[ext_resource type="PackedScene" uid="uid://wmhhyv0urtrj" path="res://scenes/Props/condition_test.tscn" id="7_wjfyb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u2scj"]
+sky_curve = 0.135188
+ground_curve = 0.101965
+
+[sub_resource type="Sky" id="Sky_7p4tv"]
+sky_material = SubResource("ProceduralSkyMaterial_u2scj")
+
+[sub_resource type="Environment" id="Environment_rqjlu"]
+background_mode = 2
+sky = SubResource("Sky_7p4tv")
+
+[node name="Root" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101, 2.5)
+size = Vector3(18, 0.2, 6)
+material = ExtResource("1_ewlnf")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -0.1, -4)
+size = Vector3(6, 0.2, 7)
+material = ExtResource("2_nlnsu")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.1, -4)
+size = Vector3(6, 0.2, 7)
+material = ExtResource("3_rqjlu")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("3_u2scj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+
+[node name="BasicPhysicsProp2" parent="." instance=ExtResource("4_nlnsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, -2)
+mass = 2.0
+can_sleep = false
+continuous_cd = true
+
+[node name="BasicPhysicsProp" parent="." instance=ExtResource("4_nlnsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.9, 2)
+mass = 2.0
+primitive = 1
+size = 0.613
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 4, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rqjlu")
+
+[node name="Pressure Plate" parent="." instance=ExtResource("5_u2scj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.3, 2)
+
+[node name="Pressure Plate2" parent="." instance=ExtResource("5_u2scj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 3)
+
+[node name="Condition Test" parent="." node_paths=PackedStringArray("conditions") instance=ExtResource("7_wjfyb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -2)
+conditions = [NodePath("../Pressure Plate")]
+
+[node name="Condition Test2" parent="." node_paths=PackedStringArray("conditions") instance=ExtResource("7_wjfyb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, -4)
+conditions = [NodePath("../Pressure Plate2")]
+
+[node name="Condition Test3" parent="." node_paths=PackedStringArray("conditions") instance=ExtResource("7_wjfyb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -2)
+conditions = [NodePath("../Pressure Plate"), NodePath("../Pressure Plate2")]

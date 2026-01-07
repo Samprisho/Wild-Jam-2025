@@ -10,21 +10,23 @@ class_name CoonMovement
 @export var ground_acceleration: float = 20
 @export var ground_counteract_factor: float = 5
 @export var ground_friction: float = 40
-@export var max_ground_speed: float = 7
+@export var max_ground_speed: float = 5
 @export var jump_veloctiy: float = 9
+@export var push_force: float = 1
 
 @export_category("Airborne")
-@export var air_acceleration: float = 3
+@export var air_acceleration: float = 2.7
 @export var air_slowdown_factor: float = 10
-@export var air_drag: float = 10
+@export var air_drag: float = 5
 @export var max_air_speed: float = 20
+@export var max_directional_influence: float = 1
 
 @export_category("Wallrun")
 @export var wallrun_acceleration: float = 5
 @export var wallrun_friction: float = 4
 @export var max_wallrun_speed: float = 30
 
-var MAX_DICT_HISTORY_LENGTH = 60
+var MAX_DICT_HISTORY_LENGTH = floor(ProjectSettings.get("physics/common/physics_ticks_per_second") * 10)
 
 enum EMovementState{
 	GROUNDED = 0,
@@ -111,8 +113,6 @@ func _physics_process(_delta: float) -> void:
 	pastInputs[timeStamp] = input
 	lastInput = input
 	
-	print(pastInputs.size())
-	
 	var state = CoonStateContainer.new(body) if pastStates.size() == 0 else pastStates.get(timeStamp - 1)
 	var newState = simulate(input, state)
 	pastStates[timeStamp] = newState
@@ -148,16 +148,13 @@ func simulate(input: CoonInputContainer, state: CoonStateContainer):
 	
 	if stateChart:
 		if state.stateOnFloor == true and newState.stateOnFloor == false:
-			print("sent jump event")
 			stateChart.send_event("jump")
 		
 		if state.stateOnFloor == false and newState.stateOnFloor == true:
-			print("sent grounded event")
 			stateChart.send_event("grounded")
 
 		if state.stateOnFloor == false and newState.stateOnFloor == false and \
 		  sign(state.stateVelocity.y) != sign(newState.stateVelocity.y):
-			print("staled")
 			stateChart.send_event("stale") 
 
 	ClientUi.showPos.emit(newState.to_string() + pastInputs[timeStamp].to_string())
@@ -175,7 +172,7 @@ func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	# of sv_accelerate
 	var wish_vel = dir * max_ground_speed
 	var wish_normal = wish_vel.normalized()
-	var wish_air_speed = clampf(wish_vel.length(), 0, max_air_speed * 0.3)
+	var wish_air_speed = clampf(wish_vel.length(), 0, max_directional_influence)
 	
 	var velWithouty = Vector3(body.velocity.x, 0, body.velocity.z)
 	
@@ -198,7 +195,6 @@ func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 		body.velocity = body.velocity.move_toward(
 			target, air_slowdown_factor * get_physics_process_delta_time()
 		)
-		print("slowing down")
 	
 	body.velocity -= Vector3.UP * GRAVITY * delta
 
@@ -228,10 +224,16 @@ func ground_simulate(input: CoonInputContainer, state: CoonStateContainer):
 		)
 	
 	if input.attemptingJump:
-		print("Jump")
 		body.velocity.y += jump_veloctiy
 	
 	body.move_and_slide()
+	
+	for i in body.get_slide_collision_count():
+		
+		var c:KinematicCollision3D = body.get_slide_collision(i)
+		if c.get_collider() is RigidBody3D:
+			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+			
 	return CoonStateContainer.new(body)
 
 

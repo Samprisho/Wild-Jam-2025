@@ -178,9 +178,8 @@ func ground_simulate(input: BallInputContainer, state: BallStateContainer):
 	
 	if body.velocity.length() > 0:
 		body.velocity = body.velocity.move_toward(
-			Vector3(body.velocity.x, 0, body.velocity.z), ground_friction * clamp(body.velocity.length() - max_ground_speed, 0, INF) * get_physics_process_delta_time()
+			Vector3.ZERO, ground_friction * get_physics_process_delta_time()
 		)
-		
 	
 	var norm = Vector3(body.get_floor_normal().x, 0, body.get_floor_normal().z)
 	body.velocity += norm * get_physics_process_delta_time() * GRAVITY

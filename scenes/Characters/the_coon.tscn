@@ -24,11 +24,11 @@ script = ExtResource("1_bhtm4")
 camera = NodePath("CameraComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, 0)
 shape = SubResource("CapsuleShape3D_ku830")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, 0)
 mesh = SubResource("CapsuleMesh_0fj4n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D2"]
@@ -103,7 +103,7 @@ camera = NodePath("../CameraComponent")
 stateChart = NodePath("../StateChart")
 
 [node name="CameraComponent" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody", "staticTarget", "risingState")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.739071, 1.78611, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.739071, 1.28611, 0.4)
 shape = SubResource("SphereShape3D_lecfq")
 spring_length = 2.0
 script = ExtResource("8_gfjo4")
@@ -120,4 +120,4 @@ risingState = NodePath("../StateChart/Root/Rising")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37294, 0)
 top_level = true
 current = true
-fov = 95.0
+fov = 70.0
