@@ -46,7 +46,9 @@ func _input(event: InputEvent) -> void:
 		return
 	if Input.is_action_just_pressed("ToggleMode"):
 		if coonInside and embarkTimer.is_stopped():
+			embarkTimer.start(0.5)
 			ownedCoon.switch_to_coon_mode()
+			
 
 
 func _physics_process(delta: float) -> void:

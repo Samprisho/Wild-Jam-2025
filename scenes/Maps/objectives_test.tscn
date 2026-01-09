@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ytufuwopx78e"]
+[gd_scene load_steps=12 format=3 uid="uid://ytufuwopx78e"]
 
 [ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_ewlnf"]
 [ext_resource type="Material" uid="uid://brj2jayoo0l0d" path="res://addons/prototype_mini_bundle/M_prototype_blue.tres" id="2_nlnsu"]
@@ -7,10 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://dl4wwdno3teag" path="res://scenes/Props/primitive_physics_prop.tscn" id="4_nlnsu"]
 [ext_resource type="PackedScene" uid="uid://cr422lad47gaj" path="res://scenes/Props/pressure_plate.tscn" id="5_u2scj"]
 [ext_resource type="PackedScene" uid="uid://wmhhyv0urtrj" path="res://scenes/Props/condition_test.tscn" id="7_wjfyb"]
+[ext_resource type="PackedScene" uid="uid://f5q4vr55kvol" path="res://scenes/Characters/the_reworked_ball.tscn" id="8_6dkre"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u2scj"]
-sky_curve = 0.135188
-ground_curve = 0.101965
+sky_horizon_color = Color(0.865326, 0.591933, 0.172207, 1)
+ground_bottom_color = Color(0.135908, 0.157938, 0.31411, 1)
+ground_horizon_color = Color(0.94412, 0.540316, 0, 1)
 
 [sub_resource type="Sky" id="Sky_7p4tv"]
 sky_material = SubResource("ProceduralSkyMaterial_u2scj")
@@ -39,8 +41,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.1, -4)
 size = Vector3(6, 0.2, 7)
 material = ExtResource("3_rqjlu")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("3_u2scj")]
+[node name="CharacterBody3D" parent="." node_paths=PackedStringArray("relatedBall") instance=ExtResource("3_u2scj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+relatedBall = NodePath("../Ball")
 
 [node name="BasicPhysicsProp2" parent="." instance=ExtResource("4_nlnsu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, -2)
@@ -55,7 +58,7 @@ primitive = 1
 size = 0.613
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, -1, -5.96046e-08, 0, 5.96046e-08, -1, 0, 4, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rqjlu")
@@ -77,3 +80,8 @@ conditions = [NodePath("../Pressure Plate2")]
 [node name="Condition Test3" parent="." node_paths=PackedStringArray("conditions") instance=ExtResource("7_wjfyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -2)
 conditions = [NodePath("../Pressure Plate"), NodePath("../Pressure Plate2")]
+
+[node name="Ball" parent="." node_paths=PackedStringArray("ownedCoon") instance=ExtResource("8_6dkre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
+ballOnlyMode = false
+ownedCoon = NodePath("../CharacterBody3D")

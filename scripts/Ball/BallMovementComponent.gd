@@ -9,6 +9,8 @@ class_name BallMovementComponent
 @export var ground_counteract_factor: float = 5
 @export var ground_friction: float = 3
 @export var max_ground_speed: float = 7
+@export var push_force: float = 1
+
 
 
 @export_category("Airborne")
@@ -188,4 +190,10 @@ func ground_simulate(input: BallInputContainer, state: BallStateContainer):
 		body.velocity.y += jump_veloctiy
 	
 	body.move_and_slide()
+	
+	for i in body.get_slide_collision_count():
+		var c:KinematicCollision3D = body.get_slide_collision(i)
+		if c.get_collider() is RigidBody3D:
+			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+				
 	return BallStateContainer.new(body)
