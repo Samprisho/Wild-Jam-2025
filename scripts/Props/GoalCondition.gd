@@ -23,6 +23,7 @@ enum EConditionType {
 	BUTTON,
 }
 
+## Marks goal condition as fulfilled (true) [br] [br]
 ## Should be called by extending class to mark goal condition as fulfilled and
 ## notify any connected [PropActivator]s
 func complete():

@@ -3,9 +3,11 @@ class_name Coon
 
 @export var relatedBall: Ball
 @export var camera: CoonCameraComponent
+@export var interaction: InteractionComponent
 @export var embarkRange: float = 4
 
 @onready var movement: CoonMovement = $CoonMovementComponent
+
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ToggleMode") and relatedBall and relatedBall.embarkTimer.is_stopped():
@@ -13,6 +15,10 @@ func _input(event: InputEvent) -> void:
 		print("embarked: ", distance)
 		if distance < embarkRange and not relatedBall.coonInside:
 			relatedBall.switch_to_ball()
+	
+	if Input.is_action_just_pressed("Interact"):
+		if interaction:
+			interaction.interact()
 
 
 func switch_to_coon_mode() -> bool:

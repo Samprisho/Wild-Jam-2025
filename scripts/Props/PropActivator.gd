@@ -27,6 +27,8 @@ signal prop_deactivate
 func _ready() -> void:
 	for condition in conditions:
 		condition.condition_changed.connect(_on_conditions_changed)
+	
+	check_if_fulfilled()
 
 ## Is called when any [GoalCondition]s in [member conditions] fire
 ## [signal GoalCondition.condition_changed]
@@ -54,3 +56,12 @@ func _evaluate_conditions() -> bool:
 	print("evaluating", result)
 	
 	return result
+
+func check_if_fulfilled():
+	fulfilled = _evaluate_conditions()
+	
+	if fulfilled:
+		prop_activate.emit()
+	else:
+		prop_deactivate.emit()
+	

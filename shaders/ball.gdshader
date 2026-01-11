@@ -8,9 +8,9 @@ void vertex() {
 }
 
 void fragment() {
-	
-	
-	
+
+
+
 	float dotprod = dot(VERTEX, vec3(0, 0, 1));
 
 	float wave = abs( sin(TIME * 0.5)) * 0.5f;
@@ -21,7 +21,7 @@ void fragment() {
 
 	float stripLeft = step(width, 1.f - UV.x);
 	float stripRight = step(width, UV.x);
-	
+
 	//ALBEDO = vec3(
 		//1.f - dotprod
 	//);

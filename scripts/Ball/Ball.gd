@@ -68,8 +68,10 @@ func _physics_process(delta: float) -> void:
 
 func reset_collision_shape():
 	$MeshInstance3D.scale = Vector3(size, size, size)
-	collisionSphere.radius = size * 0.5
-	movementComponent.jump_veloctiy = size * 2
+	if collisionSphere:
+		collisionSphere.radius = size * 0.5
+	if movementComponent:
+		movementComponent.jump_veloctiy = size * 2
 
 func switch_to_ball() -> bool:
 	ownedCoon.process_mode = Node.PROCESS_MODE_DISABLED

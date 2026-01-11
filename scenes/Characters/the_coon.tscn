@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dr64bo2d36v0n"]
+[gd_scene load_steps=14 format=3 uid="uid://dr64bo2d36v0n"]
 
 [ext_resource type="Script" uid="uid://biykxsftwgexj" path="res://scripts/Coon/Coon.gd" id="1_bhtm4"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_gvuuu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bbi77rt2a4od5" path="res://scripts/Coon/CoonMovement.gd" id="6_bhtm4"]
 [ext_resource type="Script" uid="uid://b4dwolbvt8our" path="res://addons/godot_state_charts/history_state.gd" id="6_lecfq"]
 [ext_resource type="Script" uid="uid://w4alis18y2m2" path="res://scripts/Coon/CoonCameraComponent.gd" id="8_gfjo4"]
+[ext_resource type="Script" uid="uid://bh6imr7qjbndv" path="res://scripts/Coon/InteractionComponent.gd" id="9_mouoi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ku830"]
 
@@ -15,13 +16,17 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lecfq"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_cvn5d"]
+size = Vector3(1.1, 2, 1.9)
+
+[node name="The Coon" type="CharacterBody3D" node_paths=PackedStringArray("camera", "interaction")]
 top_level = true
 floor_stop_on_slope = false
 floor_constant_speed = true
 platform_wall_layers = 1
 script = ExtResource("1_bhtm4")
 camera = NodePath("CameraComponent")
+interaction = NodePath("InteractionComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, 0)
@@ -101,6 +106,7 @@ script = ExtResource("6_bhtm4")
 body = NodePath("..")
 camera = NodePath("../CameraComponent")
 stateChart = NodePath("../StateChart")
+push_force = 2.0
 
 [node name="CameraComponent" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody", "staticTarget", "risingState")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.739071, 1.28611, 0.4)
@@ -115,6 +121,14 @@ risingState = NodePath("../StateChart/Root/Rising")
 [node name="SpringTarget" type="Node3D" parent="CameraComponent"]
 
 [node name="StaticTarget" type="Node3D" parent="CameraComponent"]
+
+[node name="InteractionComponent" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.8)
+script = ExtResource("9_mouoi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.25)
+shape = SubResource("BoxShape3D_cvn5d")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37294, 0)
