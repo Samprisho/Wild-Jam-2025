@@ -1,15 +1,15 @@
 [gd_scene load_steps=14 format=3 uid="uid://ytufuwopx78e"]
 
-[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_ewlnf"]
-[ext_resource type="Material" uid="uid://brj2jayoo0l0d" path="res://addons/prototype_mini_bundle/M_prototype_blue.tres" id="2_nlnsu"]
-[ext_resource type="Material" uid="uid://1nvrnylcajfg" path="res://addons/prototype_mini_bundle/M_prototype_red.tres" id="3_rqjlu"]
-[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/Characters/the_coon.tscn" id="3_u2scj"]
-[ext_resource type="PackedScene" uid="uid://dl4wwdno3teag" path="res://scenes/Props/primitive_physics_prop.tscn" id="4_nlnsu"]
-[ext_resource type="PackedScene" uid="uid://cr422lad47gaj" path="res://scenes/Props/puzzle/pressure_plate.tscn" id="5_u2scj"]
-[ext_resource type="PackedScene" uid="uid://wmhhyv0urtrj" path="res://scenes/Props/puzzle/condition_test.tscn" id="7_i68a0"]
-[ext_resource type="PackedScene" uid="uid://f5q4vr55kvol" path="res://scenes/Characters/the_reworked_ball.tscn" id="8_6dkre"]
-[ext_resource type="PackedScene" uid="uid://broad6xyrwj3b" path="res://scenes/Props/puzzle/big_door.tscn" id="8_116ji"]
-[ext_resource type="PackedScene" uid="uid://dhtmwvejbq4jk" path="res://scenes/Props/puzzle/button.tscn" id="9_116ji"]
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_uthmw"]
+[ext_resource type="Material" uid="uid://brj2jayoo0l0d" path="res://addons/prototype_mini_bundle/M_prototype_blue.tres" id="2_lgye2"]
+[ext_resource type="Material" uid="uid://1nvrnylcajfg" path="res://addons/prototype_mini_bundle/M_prototype_red.tres" id="3_2u2qq"]
+[ext_resource type="PackedScene" uid="uid://cr422lad47gaj" path="res://scenes/Props/puzzle/pressure_plate.tscn" id="4_5ahb3"]
+[ext_resource type="PackedScene" uid="uid://dhtmwvejbq4jk" path="res://scenes/Props/puzzle/button.tscn" id="5_x23ei"]
+[ext_resource type="PackedScene" uid="uid://wmhhyv0urtrj" path="res://scenes/Props/puzzle/condition_test.tscn" id="6_s00pl"]
+[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/Characters/the_coon.tscn" id="7_73vbx"]
+[ext_resource type="PackedScene" uid="uid://dl4wwdno3teag" path="res://scenes/Props/primitive_physics_prop.tscn" id="8_ukwpw"]
+[ext_resource type="PackedScene" uid="uid://f5q4vr55kvol" path="res://scenes/Characters/the_reworked_ball.tscn" id="9_pagil"]
+[ext_resource type="PackedScene" uid="uid://ny4ajh47oqcn" path="res://scenes/Props/puzzle/coon_door.tscn" id="10_balo8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u2scj"]
 sky_horizon_color = Color(0.865326, 0.591933, 0.172207, 1)
@@ -33,7 +33,7 @@ use_collision = true
 [node name="CSGBox3D2" type="CSGBox3D" parent="World Geometry/CSGCombiner3D2"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.8, 3.95, 2.5)
 size = Vector3(6, 7.9, 0.4)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/CSGCombiner3D2"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.8, 2, 2.6)
@@ -46,87 +46,87 @@ use_collision = true
 [node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.101, 2.5)
 size = Vector3(18, 0.2, 6)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.799, 6)
 size = Vector3(18, 8, 1)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 3.799, 9)
 size = Vector3(1, 8, 7)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D17" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 3.799, 13)
 size = Vector3(9, 8, 1)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 3.799, -4)
 size = Vector3(1, 8, 7)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 3.799, -1)
 size = Vector3(11, 8, 1)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D12" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 3.799, 5.5)
 size = Vector3(1, 8, 14)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.799, -4)
 size = Vector3(2, 8, 7)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 3.799, -0.5)
 size = Vector3(1, 8, 14)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.799, -8)
 size = Vector3(16, 8, 1)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, -0.101, 6)
 size = Vector3(7, 0.2, 13)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -0.1, -4)
 size = Vector3(6, 0.2, 7)
-material = ExtResource("2_nlnsu")
+material = ExtResource("2_lgye2")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.1, -4)
 size = Vector3(6, 0.2, 7)
-material = ExtResource("3_rqjlu")
+material = ExtResource("3_2u2qq")
 
 [node name="CSGBox3D13" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.899, 2.5)
 size = Vector3(18, 0.2, 6)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D14" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 7.899, 6)
 size = Vector3(7, 0.2, 13)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D15" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 7.9, -4)
 size = Vector3(6, 0.2, 7)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="CSGBox3D16" type="CSGBox3D" parent="World Geometry/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.9, -4)
 size = Vector3(6, 0.2, 7)
-material = ExtResource("1_ewlnf")
+material = ExtResource("1_uthmw")
 
 [node name="Lights" type="Node3D" parent="."]
 
@@ -144,28 +144,24 @@ omni_range = 18.0
 
 [node name="Puzzle Parts" type="Node3D" parent="."]
 
-[node name="Pressure Plate" parent="Puzzle Parts" instance=ExtResource("5_u2scj")]
+[node name="Pressure Plate" parent="Puzzle Parts" instance=ExtResource("4_5ahb3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.3, 2)
 
-[node name="Pressure Plate2" parent="Puzzle Parts" instance=ExtResource("5_u2scj")]
+[node name="Pressure Plate2" parent="Puzzle Parts" instance=ExtResource("4_5ahb3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 3)
 
-[node name="Big Door" parent="Puzzle Parts" node_paths=PackedStringArray("conditions") instance=ExtResource("8_116ji")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.8, 0, 2.6)
-conditions = [NodePath("../../DoorButton")]
-
-[node name="Button" parent="Puzzle Parts" instance=ExtResource("9_116ji")]
+[node name="Button" parent="Puzzle Parts" instance=ExtResource("5_x23ei")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1.2)
 
-[node name="Condition Test" parent="Puzzle Parts" node_paths=PackedStringArray("conditions") instance=ExtResource("7_i68a0")]
+[node name="Condition Test" parent="Puzzle Parts" node_paths=PackedStringArray("conditions") instance=ExtResource("6_s00pl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.7, -3)
 conditions = [NodePath("../Button")]
 
-[node name="The Coon" parent="." node_paths=PackedStringArray("relatedBall") instance=ExtResource("3_u2scj")]
+[node name="The Coon" parent="." node_paths=PackedStringArray("relatedBall") instance=ExtResource("7_73vbx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 2)
 relatedBall = NodePath("../Ball")
 
-[node name="BasicPhysicsProp" parent="." instance=ExtResource("4_nlnsu")]
+[node name="BasicPhysicsProp" parent="." instance=ExtResource("8_ukwpw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.9, 4)
 mass = 2.0
 primitive = 1
@@ -174,10 +170,14 @@ size = 1.116
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rqjlu")
 
-[node name="Ball" parent="." node_paths=PackedStringArray("ownedCoon") instance=ExtResource("8_6dkre")]
+[node name="Ball" parent="." node_paths=PackedStringArray("ownedCoon") instance=ExtResource("9_pagil")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, -3)
 ballOnlyMode = false
 ownedCoon = NodePath("../The Coon")
 
-[node name="DoorButton" parent="." instance=ExtResource("9_116ji")]
+[node name="DoorButton" parent="." instance=ExtResource("5_x23ei")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
+
+[node name="Coon Door" parent="." node_paths=PackedStringArray("conditions") instance=ExtResource("10_balo8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.8, 0, 2.6)
+conditions = [NodePath("../DoorButton")]

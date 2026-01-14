@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=4 uid="uid://ny4ajh47oqcn"]
+
+[ext_resource type="Script" uid="uid://bos8ep7rne5kd" path="res://scripts/Props/door.gd" id="1_u8x1u"]
+[ext_resource type="Material" uid="uid://cmu4vfp7y5t6b" path="res://addons/prototype_mini_bundle/M_prototype_purple.tres" id="2_j5xhd"]
+[ext_resource type="Material" uid="uid://7to3kb1tisdd" path="res://addons/prototype_mini_bundle/M_prototype_orange.tres" id="3_ws2iy"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ws2iy"]
+data = PackedVector3Array(-0.9, 0, 0.15, -0.9, 0, -0.15, -0.9, 2, -0.15, 0.9, 0, -0.15, -0.9, 0, -0.15, -0.9, 0, 0.15, -0.9, 2, -0.15, -0.9, 0, -0.15, 0.9, 0, -0.15, -0.9, 2, -0.15, -0.9, 2, 0.15, -0.9, 0, 0.15, -0.9, 0, 0.15, -0.9, 2, 0.15, 0.9, 2, 0.15, 0.9, 2, 0.15, -0.9, 2, 0.15, -0.9, 2, -0.15, -0.9, 0, 0.15, 0.9, 0, 0.15, 0.9, 0, -0.15, 0.9, 2, 0.15, 0.9, 0, 0.15, -0.9, 0, 0.15, 0.9, 0, -0.15, 0.9, 0, 0.15, 0.9, 2, 0.15, 0.9, 0, -0.15, 0.9, 2, -0.15, -0.9, 2, -0.15, -0.9, 2, -0.15, 0.9, 2, -0.15, 0.9, 2, 0.15, 0.9, 2, 0.15, 0.9, 2, -0.15, 0.9, 0, -0.15)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vtn70"]
+_surfaces = [{
+"aabb": AABB(-0.9, 0, -0.15, 1.8, 2, 0.3),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("Z2ZmvwAAAACamRk+Z2ZmvwAAAACamRm+Z2ZmvwAAAECamRm+Z2ZmPwAAAACamRm+Z2ZmvwAAAACamRm+Z2ZmvwAAAACamRk+Z2ZmvwAAAECamRm+Z2ZmvwAAAACamRm+Z2ZmPwAAAACamRm+Z2ZmvwAAAECamRm+Z2ZmvwAAAECamRk+Z2ZmvwAAAACamRk+Z2ZmvwAAAACamRk+Z2ZmvwAAAECamRk+Z2ZmPwAAAECamRk+Z2ZmPwAAAECamRk+Z2ZmvwAAAECamRk+Z2ZmvwAAAECamRm+Z2ZmvwAAAACamRk+Z2ZmPwAAAACamRk+Z2ZmPwAAAACamRm+Z2ZmPwAAAECamRk+Z2ZmPwAAAACamRk+Z2ZmvwAAAACamRk+Z2ZmPwAAAACamRm+Z2ZmPwAAAACamRk+Z2ZmPwAAAECamRk+Z2ZmPwAAAACamRm+Z2ZmPwAAAECamRm+Z2ZmvwAAAECamRm+Z2ZmvwAAAECamRm+Z2ZmPwAAAECamRm+Z2ZmPwAAAECamRk+Z2ZmPwAAAECamRk+Z2ZmPwAAAECamRm+Z2ZmPwAAAACamRm+AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
+}]
+
+[node name="Coon Door" type="Node3D" node_paths=PackedStringArray("doorCollider", "doorMesh")]
+script = ExtResource("1_u8x1u")
+doorCollider = NodePath("StaticBody3D")
+doorMesh = NodePath("StaticBody3D/CSGBakedMeshInstance3D")
+metadata/_custom_type_script = "uid://ccajhpbu65idv"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ws2iy")
+
+[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = ExtResource("2_j5xhd")
+mesh = SubResource("ArrayMesh_vtn70")
+skeleton = NodePath("../..")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+material_override = ExtResource("3_ws2iy")
+use_collision = true
+
+[node name="Frame" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+size = Vector3(5, 4, 0.3)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+operation = 2
+size = Vector3(1.8, 2, 0.3)

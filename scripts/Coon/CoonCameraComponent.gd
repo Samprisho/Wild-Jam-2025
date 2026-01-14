@@ -4,6 +4,7 @@ class_name CoonCameraComponent
 @export var coonCam: Camera3D
 @export var coonBody: Coon
 @export var staticTarget:Node3D
+@export var characterMesh: MeshInstance3D
 
 @export var risingState :AtomicState
 
@@ -16,6 +17,7 @@ var yOffset: float = 0
 func _ready() -> void:
 	risingState.state_entered.connect(_on_rising)
 	risingState.state_exited.connect(_on_rising_exit)
+	characterMesh.hide
 
 func add_offset(offset: Vector3):
 	self.offset += offset
@@ -46,6 +48,7 @@ func _process(delta):
 
 func make_active():
 	coonCam.make_current()
+	characterMesh.hide()
 
 func _on_rising():
 	allowYChange = false

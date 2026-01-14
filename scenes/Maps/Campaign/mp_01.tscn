@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c35sad3diiimy"]
+
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_cp4un"]
+[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/Characters/the_coon.tscn" id="2_j43gt"]
+
+[node name="Mp01" type="Node3D"]
+
+[node name="Map Geometry" type="Node" parent="."]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Map Geometry"]
+material_override = ExtResource("1_cp4un")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map Geometry/CSGCombiner3D"]
+flip_faces = true
+size = Vector3(6, 2, 3)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="The Coon" parent="." instance=ExtResource("2_j43gt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.615302, -1, 0.591915)

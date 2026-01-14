@@ -17,10 +17,12 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_lecfq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cvn5d"]
-size = Vector3(1.1, 2, 1.9)
+size = Vector3(1.1, 1.1, 1.1)
 
 [node name="The Coon" type="CharacterBody3D" node_paths=PackedStringArray("camera", "interaction")]
 top_level = true
+collision_layer = 2
+collision_mask = 3
 floor_stop_on_slope = false
 floor_constant_speed = true
 platform_wall_layers = 1
@@ -35,11 +37,6 @@ shape = SubResource("CapsuleShape3D_ku830")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, 0)
 mesh = SubResource("CapsuleMesh_0fj4n")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D2"]
-transform = Transform3D(0.21335, 0, 0, 0, -0.00147574, 0.212912, 0, -0.416514, -0.000754363, 0, 0.434002, -0.596153)
-mesh = SubResource("CapsuleMesh_0fj4n")
-skeleton = NodePath("../..")
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_gvuuu")
@@ -106,16 +103,20 @@ script = ExtResource("6_bhtm4")
 body = NodePath("..")
 camera = NodePath("../CameraComponent")
 stateChart = NodePath("../StateChart")
+ground_counteract_factor = 3.0
+ground_friction = 30.0
+jump_veloctiy = 7.0
 push_force = 2.0
 
-[node name="CameraComponent" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody", "staticTarget", "risingState")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.739071, 1.28611, 0.4)
+[node name="CameraComponent" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody", "staticTarget", "characterMesh", "risingState")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 shape = SubResource("SphereShape3D_lecfq")
-spring_length = 2.0
+spring_length = 0.025
 script = ExtResource("8_gfjo4")
 coonCam = NodePath("../Camera3D")
 coonBody = NodePath("..")
 staticTarget = NodePath("StaticTarget")
+characterMesh = NodePath("../MeshInstance3D2")
 risingState = NodePath("../StateChart/Root/Rising")
 
 [node name="SpringTarget" type="Node3D" parent="CameraComponent"]
@@ -127,7 +128,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.8)
 script = ExtResource("9_mouoi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0500001, 0.15)
 shape = SubResource("BoxShape3D_cvn5d")
 
 [node name="Camera3D" type="Camera3D" parent="."]

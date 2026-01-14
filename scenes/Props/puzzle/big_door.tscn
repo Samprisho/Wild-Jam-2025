@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://broad6xyrwj3b"]
 
-[ext_resource type="Script" uid="uid://bos8ep7rne5kd" path="res://scripts/Props/big_door.gd" id="1_ueypc"]
+[ext_resource type="Script" uid="uid://bos8ep7rne5kd" path="res://scripts/Props/door.gd" id="1_ueypc"]
 [ext_resource type="Material" uid="uid://7to3kb1tisdd" path="res://addons/prototype_mini_bundle/M_prototype_orange.tres" id="2_44nj1"]
 [ext_resource type="Material" uid="uid://cmu4vfp7y5t6b" path="res://addons/prototype_mini_bundle/M_prototype_purple.tres" id="2_ueypc"]
 
