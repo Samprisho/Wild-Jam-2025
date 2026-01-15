@@ -25,6 +25,10 @@ ClientUi="*res://scripts/UI/client_ui.gd"
 
 window/vsync/vsync_mode=0
 
+[dotnet]
+
+project/assembly_name="Wild Jam 2025"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg", "res://addons/script-ide/plugin.cfg")

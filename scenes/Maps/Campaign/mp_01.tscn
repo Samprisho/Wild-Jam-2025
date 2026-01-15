@@ -12,11 +12,21 @@ material_override = ExtResource("1_cp4un")
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map Geometry/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 flip_faces = true
-size = Vector3(6, 2, 3)
+size = Vector3(8, 5, 12)
+
+[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="Map Geometry"]
+material_override = ExtResource("1_cp4un")
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map Geometry/CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, -0.5)
+size = Vector3(1, 1, 2)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+omni_range = 12.0
 
 [node name="The Coon" parent="." instance=ExtResource("2_j43gt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.615302, -1, 0.591915)
+transform = Transform3D(1.17, 0, 0, 0, 1.17, 0, 0, 0, 1.17, -0.615302, -2, -3.40808)
