@@ -36,6 +36,7 @@ shape = SubResource("CapsuleShape3D_ku830")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_0fj4n")
 
 [node name="StateChart" type="Node" parent="."]
