@@ -1,18 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://dl4wwdno3teag"]
+[gd_scene load_steps=5 format=3 uid="uid://dl4wwdno3teag"]
 
 [ext_resource type="Script" uid="uid://b1e5f1ligo5xo" path="res://scripts/Props/PrimitivePhysicsProp.gd" id="1_kf3be"]
+[ext_resource type="Script" uid="uid://bh6imr7qjbndv" path="res://scripts/Coon/InteractionComponent.gd" id="2_rqrdn"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_kf3be"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rqrdn"]
+size = Vector3(2.5, 2.5, 2.5)
 
-[sub_resource type="SphereMesh" id="SphereMesh_rqrdn"]
-radial_segments = 10
-rings = 5
+[sub_resource type="BoxMesh" id="BoxMesh_4xtpx"]
 
 [node name="BasicPhysicsProp" type="RigidBody3D"]
+collision_mask = 3
+contact_monitor = true
+max_contacts_reported = 3
 script = ExtResource("1_kf3be")
+primitive = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_kf3be")
+shape = SubResource("BoxShape3D_rqrdn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_rqrdn")
+transform = Transform3D(2.535, 0, 0, 0, 2.535, 0, 0, 0, 2.535, 0, 0, 0)
+mesh = SubResource("BoxMesh_4xtpx")
+
+[node name="InteractionComponent" type="Area3D" parent="."]
+script = ExtResource("2_rqrdn")
+metadata/_custom_type_script = "uid://bh6imr7qjbndv"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent"]
+shape = SubResource("BoxShape3D_rqrdn")
+
+[node name="grabTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

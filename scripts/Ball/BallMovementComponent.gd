@@ -33,6 +33,7 @@ class BallStateContainer:
 		self.statePosition = body.position
 		self.stateVelocity = body.velocity
 		self.stateOnFloor = body.is_on_floor()
+		self.coonInside = body.coonInside
 
 	func _to_string() -> String:
 		var result: String = ""
@@ -45,8 +46,10 @@ class BallStateContainer:
 		return result
 	var statePosition: Vector3
 	var stateVelocity: Vector3
+	var coonInside: bool
 	var stateOnFloor: bool
 	var movementState: EMovementState = EMovementState.GROUNDED
+	
 
 class BallInputContainer:
 	func _init(axis, jumping, crouching) -> void:
@@ -186,7 +189,7 @@ func ground_simulate(input: BallInputContainer, state: BallStateContainer):
 	var norm = Vector3(body.get_floor_normal().x, 0, body.get_floor_normal().z)
 	body.velocity += norm * get_physics_process_delta_time() * GRAVITY
 	
-	if input.attemptingJump:
+	if input.attemptingJump && state.coonInside:
 		body.velocity.y += jump_veloctiy
 	
 	body.move_and_slide()

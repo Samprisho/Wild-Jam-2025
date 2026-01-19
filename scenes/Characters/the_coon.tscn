@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dr64bo2d36v0n"]
+[gd_scene load_steps=15 format=3 uid="uid://dr64bo2d36v0n"]
 
 [ext_resource type="Script" uid="uid://biykxsftwgexj" path="res://scripts/Coon/Coon.gd" id="1_bhtm4"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_gvuuu"]
@@ -17,7 +17,10 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_lecfq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cvn5d"]
-size = Vector3(1.1, 1.1, 1.1)
+size = Vector3(2.5, 1.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mouoi"]
+size = Vector3(1, 1, 3)
 
 [node name="The Coon" type="CharacterBody3D" node_paths=PackedStringArray("camera", "interaction")]
 top_level = true
@@ -28,7 +31,7 @@ floor_constant_speed = true
 platform_wall_layers = 1
 script = ExtResource("1_bhtm4")
 camera = NodePath("CameraComponent")
-interaction = NodePath("InteractionComponent")
+interaction = NodePath("Camera3D/InteractionComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, 0)
@@ -124,16 +127,19 @@ risingState = NodePath("../StateChart/Root/Rising")
 
 [node name="StaticTarget" type="Node3D" parent="CameraComponent"]
 
-[node name="InteractionComponent" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.8)
-script = ExtResource("9_mouoi")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0500001, 0.15)
-shape = SubResource("BoxShape3D_cvn5d")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37294, 0)
 top_level = true
 current = true
 fov = 70.0
+
+[node name="InteractionComponent" type="Area3D" parent="Camera3D"]
+script = ExtResource("9_mouoi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/InteractionComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.25)
+shape = SubResource("BoxShape3D_cvn5d")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Camera3D/InteractionComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -1.25)
+shape = SubResource("BoxShape3D_mouoi")

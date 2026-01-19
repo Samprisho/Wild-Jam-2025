@@ -162,10 +162,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 2)
 relatedBall = NodePath("../Ball")
 
 [node name="BasicPhysicsProp" parent="." instance=ExtResource("8_ukwpw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.9, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.9, 2.96775)
 mass = 2.0
-primitive = 1
-size = 1.116
+size = 0.406
+
+[node name="BasicPhysicsProp2" parent="." instance=ExtResource("8_ukwpw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.9, 2.96775)
+mass = 2.0
+primitive = 0
+size = 0.406
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rqjlu")
