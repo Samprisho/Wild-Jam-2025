@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckhob34m8mya"]
+
+[ext_resource type="Script" uid="uid://hwy2o1r3ryf4" path="res://scripts/Props/jump_pad.gd" id="1_te11f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te11f"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_te11f"]
+size = Vector3(1.1, 0.3, 1.1)
+
+[node name="JumpPad" type="Node3D" node_paths=PackedStringArray("detactionArea", "launchDirectionNode")]
+script = ExtResource("1_te11f")
+detactionArea = NodePath("DetctionArea")
+launchDirectionNode = NodePath("LaunchDirection")
+metadata/_custom_type_script = "uid://ccajhpbu65idv"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+size = Vector3(1, 0.2, 1)
+material = SubResource("StandardMaterial3D_te11f")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1.05, 0, 0, 0, 1, 0, 0, 0, 1.05, 0, 0.05, 0)
+size = Vector3(1, 0.1, 1)
+
+[node name="DetctionArea" type="Area3D" parent="."]
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetctionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape3D_te11f")
+
+[node name="LaunchDirection" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

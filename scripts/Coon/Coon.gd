@@ -8,7 +8,6 @@ class_name Coon
 
 @onready var movement: CoonMovement = $CoonMovementComponent
 
-
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ToggleMode") and relatedBall and relatedBall.embarkTimer.is_stopped():
 		var distance = relatedBall.global_position.distance_to(global_position)
@@ -39,6 +38,11 @@ func switch_to_coon_mode() -> bool:
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+func apply_impulse(velocity: Vector3, overrideVelocity: bool):
+	if overrideVelocity:
+		movement.lastState.stateVelocity = velocity
+	else:
+		movement.lastState.stateVelocity += velocity
 func _on_airborne_state_entered() -> void:
 	print("Now airborne") 
 

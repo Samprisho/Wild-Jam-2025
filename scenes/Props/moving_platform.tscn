@@ -24,6 +24,7 @@ path = SubResource("Curve3D_ms375")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
+layers = 2
 mesh = SubResource("BoxMesh_ms375")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -32,4 +33,5 @@ shape = SubResource("BoxShape3D_1tdcd")
 
 [node name="Path3D" type="Path3D" parent="."]
 unique_name_in_owner = true
+top_level = true
 curve = SubResource("Curve3D_ms375")

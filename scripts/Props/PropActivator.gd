@@ -3,11 +3,15 @@ class_name PropActivator
 
 ## This class can be extended by nodes that need to interact with any 
 ## goal condition. [br]
+## If there are no conditions, this prop is considered
+## always active [br]
 ## [color=yellow]WARNING: [/color]Please call [code]super()[/code] when overriding [method Node._ready]
 
 ## The list of goal conditions that will determine if the prop should be active
 ## or not. [br]
-## Use the Inspector window to pick nodes that inherit from [GoalCondition].
+## Use the Inspector window to pick nodes that inherit from [class GoalCondition].
+## If there are no conditions, this prop is considered
+## always active 
 @export var conditions: Array[GoalCondition] = []
 
 var fulfilled: bool = false
@@ -43,7 +47,7 @@ func _on_conditions_changed(state: bool, condition: GoalCondition):
 	
 
 ## Compare conditions with 'AND' essentially by iterating through all [GoalCondition]s
-## and ensuring they are all fulfilled
+## and ensuring they are all fulfilled. 
 func _evaluate_conditions() -> bool:
 	var result: bool = true
 	

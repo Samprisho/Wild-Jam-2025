@@ -35,6 +35,7 @@ func _reset_properties() -> void:
 	%Mesh.mesh = mesh
 	%Collision.shape = collision
 	%Path3D.curve = path
+	%Path3D.position = global_position
 
 
 func _configure_tween() -> void:
