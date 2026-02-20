@@ -21,6 +21,7 @@ script = ExtResource("1_ms375")
 mesh = SubResource("BoxMesh_ms375")
 collision = SubResource("BoxShape3D_1tdcd")
 path = SubResource("Curve3D_ms375")
+pingPong = null
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true

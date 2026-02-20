@@ -23,6 +23,7 @@ var tween: Tween
 
 @export var transitionType: Tween.TransitionType = Tween.TransitionType.TRANS_LINEAR
 @export var duration: float = 7
+@export var pingPong: bool = true
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -48,7 +49,19 @@ func _configure_tween() -> void:
 	tween = create_tween()
 	tween.set_loops(0)
 	
+	var pointDurationPingPongAccounted: float = (duration * 2) if pingPong else duration
+	pointDurationPingPongAccounted /= path.point_count
+	
+	
 	for i in range(path.point_count):
 		var pos: Vector3 = path.get_point_position(i)
-		tween.tween_property(self, "position", position + pos, duration / path.point_count).set_trans(transitionType)
+		tween.tween_property(self, "position", position + pos, pointDurationPingPongAccounted).set_trans(transitionType)
+	
+	var reverseRange = range(path.point_count)
+	reverseRange.reverse()
+	
+	if pingPong:
+		for i in reverseRange:
+			var pos: Vector3 = path.get_point_position(i)
+			tween.tween_property(self, "position", position + pos, pointDurationPingPongAccounted).set_trans(transitionType)
 	print("Tweened")

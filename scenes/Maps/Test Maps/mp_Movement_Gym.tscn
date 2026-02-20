@@ -1,0 +1,210 @@
+[gd_scene load_steps=14 format=3 uid="uid://tqkosb01y2qc"]
+
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_c4vew"]
+[ext_resource type="PackedScene" uid="uid://hw3lv6xqk6c1" path="res://scenes/Props/puzzle/teleporter.tscn" id="2_8intk"]
+[ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/Characters/the_coon.tscn" id="2_ml3o4"]
+[ext_resource type="Material" uid="uid://brj2jayoo0l0d" path="res://addons/prototype_mini_bundle/M_prototype_blue.tres" id="2_oqxh5"]
+[ext_resource type="PackedScene" uid="uid://ckhob34m8mya" path="res://scenes/Props/puzzle/jump_pad.tscn" id="3_oqxh5"]
+[ext_resource type="Shader" uid="uid://caoi3jsyhq1uu" path="res://shaders/glass_shader.tres" id="4_dm10f"]
+[ext_resource type="PackedScene" uid="uid://db2jx73sb1a0o" path="res://scenes/Props/moving_platform.tscn" id="6_6b5q7"]
+
+[sub_resource type="Curve3D" id="Curve3D_6b5q7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.92, 0, 0, 0, 0, 0, 0, 0, 0, 1.93, 0, 8.305, 0, 0, 0, 0, 0, 0, 1.93, 2.845, 8.305),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_dm10f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nrof2"]
+render_priority = 0
+shader = ExtResource("4_dm10f")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u5ehj"]
+sky_horizon_color = Color(0.948827, 0.536623, 1.15514e-06, 1)
+sky_curve = 0.0989631
+ground_horizon_color = Color(0.922074, 0.556918, 1.54018e-06, 1)
+ground_curve = 0.00707107
+
+[sub_resource type="Sky" id="Sky_oj8ts"]
+sky_material = SubResource("ProceduralSkyMaterial_u5ehj")
+
+[sub_resource type="Environment" id="Environment_11h4g"]
+background_mode = 2
+sky = SubResource("Sky_oj8ts")
+ambient_light_source = 3
+ambient_light_energy = 1.55
+reflected_light_source = 2
+
+[node name="MpMovementGym" type="Node3D"]
+
+[node name="World Geometry" type="Node" parent="."]
+
+[node name="Paths" type="CSGCombiner3D" parent="World Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_c4vew")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/Paths"]
+size = Vector3(58, 1, 58.4)
+
+[node name="All about jumping" type="CSGCombiner3D" parent="World Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.1287, 0, 7.33166)
+material_override = ExtResource("2_oqxh5")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 2)
+size = Vector3(1, 1.5, 5)
+
+[node name="Label3D" type="Label3D" parent="World Geometry/All about jumping/CSGBox3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.25, 0)
+text = "This is the max height a player can climb up on"
+
+[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/CSGBox3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.6, 0.15, -0.1)
+text = "1.5 Units tall.
+  (assuming you didn't scale the transform)
+"
+
+[node name="Jump distance with run start_ 4_0" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.75, -5.5)
+size = Vector3(2, 1.5, 2)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -5.5)
+size = Vector3(1, 1, 2)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.25, -5.5)
+size = Vector3(1, 0.5, 2)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.75, -11.5)
+size = Vector3(2, 1.5, 2)
+
+[node name="Label3D" type="Label3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 2, -8.7)
+text = "With a running start, a player can cross a 4 Unit jump with moderate difficulty."
+autowrap_mode = 2
+
+[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1.1, -8.7)
+text = "Consider this distance your \"Maximum\" jump distance."
+autowrap_mode = 2
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17)
+
+[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3, -3.7)
+text = "Players can stick to a wall and hold left after jumping to enter such cavities"
+autowrap_mode = 2
+
+[node name="JumpPad" parent="World Geometry/All about jumping/CSGCombiner3D" node_paths=PackedStringArray("launchDirectionNode") instance=ExtResource("3_oqxh5")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -2.1713, 3.4, -4.03166)
+launchDirectionNode = NodePath("Node3D")
+jumpPadPower = 25.0
+
+[node name="Node3D" type="Marker3D" parent="World Geometry/All about jumping/CSGCombiner3D/JumpPad"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 2.7, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.49678, -2.5)
+size = Vector3(3, 5, 6)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.799999, 3.54678, -3.5)
+operation = 2
+size = Vector3(2.6, 3.1, 3)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.75, 9.53674e-07)
+size = Vector3(2, 1.5, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.2, 2.49678, -3.5)
+size = Vector3(3, 5, 8)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.1, 3.29678, -2.5)
+operation = 2
+size = Vector3(3.6, 2.6, 5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.05, 3.29678, -6.5)
+operation = 2
+size = Vector3(1.5, 2.6, 3)
+
+[node name="Platform" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.7287, 2, -25.7317)
+path = SubResource("Curve3D_6b5q7")
+pingPong = true
+
+[node name="Platform2" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1287, 5, -14.3317)
+path = SubResource("Curve3D_dm10f")
+pingPong = true
+
+[node name="Platform3" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1287, 4.5, -11.3317)
+path = SubResource("Curve3D_dm10f")
+pingPong = true
+
+[node name="Platform4" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3287, 4.5, -7.93166)
+path = SubResource("Curve3D_dm10f")
+pingPong = true
+
+[node name="Platform5" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3287, 5.5, -5.93166)
+path = SubResource("Curve3D_dm10f")
+pingPong = true
+
+[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, -4)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2.5)
+size = Vector3(3, 1, 4)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="World Geometry/All about jumping/CSGCombiner3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 3.68998)
+polygon = PackedVector2Array(0, 0, 0, 1, 1, 0, 1, 0)
+depth = 1.25
+
+[node name="JumpPad" parent="World Geometry/All about jumping/CSGCombiner3D2" instance=ExtResource("3_oqxh5")]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 0.979086, 1.02169, 3.06834)
+jumpPadPower = 20.0
+
+[node name="Glass" type="CSGCombiner3D" parent="World Geometry"]
+material_override = SubResource("ShaderMaterial_nrof2")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/Glass"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.63311, 3.26547, -13.389)
+size = Vector3(0.5, 2.5, 7.4)
+
+[node name="Lighting" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(0.965926, -0.183013, 0.183013, 0.166366, 0.980707, 0.102643, -0.198267, -0.0686985, 0.977738, 0, 2, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting"]
+environment = SubResource("Environment_11h4g")
+
+[node name="Props" type="Node" parent="."]
+
+[node name="Teleporter" parent="Props" node_paths=PackedStringArray("destinationNode") instance=ExtResource("2_8intk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.03776, 4.76837e-07, -2.3277)
+destinationNode = NodePath("../Teleporter2")
+
+[node name="Teleporter2" parent="Props" node_paths=PackedStringArray("destinationNode") instance=ExtResource("2_8intk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0378, 4.76837e-07, -15.3277)
+destinationNode = NodePath("../Teleporter")
+
+[node name="The Coon" parent="." instance=ExtResource("2_ml3o4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 10)

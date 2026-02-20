@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://hw3lv6xqk6c1"]
+
+[ext_resource type="Script" uid="uid://dyosligqhk02v" path="res://scripts/Props/teleporter.gd" id="1_8qofi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qofi"]
+albedo_color = Color(0, 0.619608, 0.729412, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8qofi"]
+height = 0.388446
+radius = 1.5
+
+[node name="Teleporter" type="Node3D" node_paths=PackedStringArray("label3D", "padMesh", "collision", "timer")]
+script = ExtResource("1_8qofi")
+textLabelContent = "Remember to add a marker node and reference it in \"Destination Node\" in the inspector."
+teleporterColor = Color(0, 0.619608, 0.729412, 1)
+label3D = NodePath("Label3D")
+padMesh = NodePath("CSGCylinder3D3")
+collision = NodePath("TeleporterCollision")
+timer = NodePath("Cooldown")
+metadata/_custom_type_script = "uid://ccajhpbu65idv"
+
+[node name="Cooldown" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1.4, 0, 0, 0, 1, 0, 0, 0, 1.4, 0, 0.05, 0)
+radius = 1.1
+height = 0.1
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1.4, 0, 0, 0, 1, 0, 0, 0, 1.4, 0, 0.1625, 0)
+material_override = SubResource("StandardMaterial3D_8qofi")
+radius = 1.0
+height = 0.325
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)
+text = "Remember to add a marker node and reference it in \"Destination Node\" in the inspector."
+autowrap_mode = 2
+
+[node name="TeleporterCollision" type="Area3D" parent="."]
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TeleporterCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.217331, 0)
+shape = SubResource("CylinderShape3D_8qofi")
+
+[connection signal="body_entered" from="TeleporterCollision" to="." method="_on_teleporter_collision_body_entered"]

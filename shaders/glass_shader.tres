@@ -18,7 +18,7 @@ expanded_output_ports = [0]
 input_name = "view"
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_mloeu"]
-default_input_values = [0, 0.0, 1, 1.0]
+default_input_values = [0, 0.0, 1, 5.0]
 operator = 2
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_qotfd"]
@@ -26,7 +26,7 @@ default_input_values = [0, 0.0, 1, 2.0]
 operator = 2
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_yr0wl"]
-default_input_values = [0, 0.0, 1, 0.5]
+default_input_values = [0, 0.0, 1, 2.0]
 operator = 2
 
 [sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_1bdnm"]
@@ -35,7 +35,7 @@ function = 1
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_6o3w8"]
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_tm6cw"]
-constant = 0.2
+constant = 0.3
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_2huls"]
 
@@ -81,7 +81,7 @@ void fragment() {
 
 
 // FloatOp:14
-	float n_in14p1 = 1.00000;
+	float n_in14p1 = 5.00000;
 	float n_out14p0 = n_out11p0 * n_in14p1;
 
 
@@ -94,7 +94,7 @@ void fragment() {
 
 
 // FloatOp:16
-	float n_in16p1 = 0.50000;
+	float n_in16p1 = 2.00000;
 	float n_out16p0 = n_out15p0 * n_in16p1;
 
 
@@ -111,7 +111,7 @@ void fragment() {
 
 
 // FloatConstant:2
-	float n_out2p0 = 0.200000;
+	float n_out2p0 = 0.300000;
 
 
 // FloatConstant:3
@@ -126,6 +126,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-1264.17, -6.68595)
 nodes/fragment/0/position = Vector2(840, 280)
 nodes/fragment/2/node = SubResource("VisualShaderNodeFloatConstant_tm6cw")
 nodes/fragment/2/position = Vector2(440, 480)
