@@ -54,129 +54,145 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.1287, 0, 7.33166)
 material_override = ExtResource("2_oqxh5")
 use_collision = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping"]
+[node name="Max wall height player can jump on" type="CSGBox3D" parent="World Geometry/All about jumping"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 2)
 size = Vector3(1, 1.5, 5)
 
-[node name="Label3D" type="Label3D" parent="World Geometry/All about jumping/CSGBox3D"]
+[node name="Label3D" type="Label3D" parent="World Geometry/All about jumping/Max wall height player can jump on"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.25, 0)
 text = "This is the max height a player can climb up on"
 
-[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/CSGBox3D"]
+[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/Max wall height player can jump on"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.6, 0.15, -0.1)
 text = "1.5 Units tall.
   (assuming you didn't scale the transform)
 "
 
-[node name="Jump distance with run start_ 4_0" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
+[node name="Jump Distance" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="World Geometry/All about jumping/Jump Distance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.75, -5.5)
 size = Vector3(2, 1.5, 2)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="World Geometry/All about jumping/Jump Distance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -5.5)
 size = Vector3(1, 1, 2)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="World Geometry/All about jumping/Jump Distance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.25, -5.5)
 size = Vector3(1, 0.5, 2)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="World Geometry/All about jumping/Jump Distance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.75, -11.5)
 size = Vector3(2, 1.5, 2)
 
-[node name="Label3D" type="Label3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+[node name="Label3D" type="Label3D" parent="World Geometry/All about jumping/Jump Distance"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 2, -8.7)
 text = "With a running start, a player can cross a 4 Unit jump with moderate difficulty."
 autowrap_mode = 2
 
-[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/Jump distance with run start_ 4_0"]
+[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/Jump Distance"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1.1, -8.7)
 text = "Consider this distance your \"Maximum\" jump distance."
 autowrap_mode = 2
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
+[node name="Cavity jump to Jump Pad Transition" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17)
 
-[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+[node name="Label3D2" type="Label3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3, -3.7)
 text = "Players can stick to a wall and hold left after jumping to enter such cavities"
 autowrap_mode = 2
 
-[node name="JumpPad" parent="World Geometry/All about jumping/CSGCombiner3D" node_paths=PackedStringArray("launchDirectionNode") instance=ExtResource("3_oqxh5")]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -2.1713, 3.4, -4.03166)
+[node name="Label3D4" type="Label3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
+transform = Transform3D(-1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, -1, -0.8, 3.2, -2.1)
+text = "Reward players when transitioning to different parts of a course."
+autowrap_mode = 2
+
+[node name="JumpPad" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition" node_paths=PackedStringArray("launchDirectionNode") instance=ExtResource("3_oqxh5")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -2.1713, 3.4, -3.83166)
 launchDirectionNode = NodePath("Node3D")
 jumpPadPower = 25.0
 
-[node name="Node3D" type="Marker3D" parent="World Geometry/All about jumping/CSGCombiner3D/JumpPad"]
+[node name="Node3D" type="Marker3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition/JumpPad"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 2.7, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.49678, -2.5)
 size = Vector3(3, 5, 6)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.799999, 3.54678, -3.5)
+[node name="CSGBox3D2" type="CSGBox3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.799999, 3.54678, -3.25)
 operation = 2
-size = Vector3(2.6, 3.1, 3)
+size = Vector3(2.6, 3.1, 2.5)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.75, 9.53674e-07)
 size = Vector3(2, 1.5, 1)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.2, 2.49678, -3.5)
 size = Vector3(3, 5, 8)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.1, 3.29678, -2.5)
 operation = 2
 size = Vector3(3.6, 2.6, 5)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.05, 3.29678, -6.5)
 operation = 2
 size = Vector3(1.5, 2.6, 3)
 
+[node name="Label3D3" type="Label3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 9.6, 3, -3.7)
+text = "Limit platform movements to a singular direction and add some distance for the player to comfortably jump on. 
+
+This moving platform doesn't follow the rules, therefore, it stinks"
+autowrap_mode = 2
+
 [node name="Platform" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.7287, 2, -25.7317)
 path = SubResource("Curve3D_6b5q7")
-pingPong = true
 
-[node name="Platform2" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+[node name="Platforming 1" type="Node3D" parent="World Geometry/All about jumping"]
+
+[node name="Label3D" type="Label3D" parent="World Geometry/All about jumping/Platforming 1"]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 4.13947, 5.5, -7.07185)
+text = "Unless you want the player to build speed with airstrafing, do not make platforms have a repeating pattern.
+
+Also, give the platforms some space"
+autowrap_mode = 2
+
+[node name="Platform2" parent="World Geometry/All about jumping/Platforming 1" instance=ExtResource("6_6b5q7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1287, 5, -14.3317)
 path = SubResource("Curve3D_dm10f")
-pingPong = true
 
-[node name="Platform3" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+[node name="Platform3" parent="World Geometry/All about jumping/Platforming 1" instance=ExtResource("6_6b5q7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1287, 4.5, -11.3317)
 path = SubResource("Curve3D_dm10f")
-pingPong = true
 
-[node name="Platform4" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+[node name="Platform4" parent="World Geometry/All about jumping/Platforming 1" instance=ExtResource("6_6b5q7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3287, 4.5, -7.93166)
 path = SubResource("Curve3D_dm10f")
-pingPong = true
 
-[node name="Platform5" parent="World Geometry/All about jumping" instance=ExtResource("6_6b5q7")]
+[node name="Platform5" parent="World Geometry/All about jumping/Platforming 1" instance=ExtResource("6_6b5q7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3287, 5.5, -5.93166)
 path = SubResource("Curve3D_dm10f")
-pingPong = true
 
-[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
+[node name="To the moon!" type="CSGCombiner3D" parent="World Geometry/All about jumping"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, -4)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping/CSGCombiner3D2"]
+[node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping/To the moon!"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2.5)
 size = Vector3(3, 1, 4)
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="World Geometry/All about jumping/CSGCombiner3D2"]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="World Geometry/All about jumping/To the moon!"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 3.68998)
 polygon = PackedVector2Array(0, 0, 0, 1, 1, 0, 1, 0)
 depth = 1.25
 
-[node name="JumpPad" parent="World Geometry/All about jumping/CSGCombiner3D2" instance=ExtResource("3_oqxh5")]
+[node name="JumpPad" parent="World Geometry/All about jumping/To the moon!" instance=ExtResource("3_oqxh5")]
 transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 0.979086, 1.02169, 3.06834)
 jumpPadPower = 20.0
 

@@ -1,12 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://c35sad3diiimy"]
+[gd_scene load_steps=17 format=3 uid="uid://c35sad3diiimy"]
 
 [ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_cp4un"]
+[ext_resource type="Shader" uid="uid://caoi3jsyhq1uu" path="res://shaders/glass_shader.tres" id="1_dcfi6"]
 [ext_resource type="Material" uid="uid://brj2jayoo0l0d" path="res://addons/prototype_mini_bundle/M_prototype_blue.tres" id="2_iiq8u"]
 [ext_resource type="PackedScene" uid="uid://dr64bo2d36v0n" path="res://scenes/Characters/the_coon.tscn" id="2_j43gt"]
 [ext_resource type="PackedScene" uid="uid://ny4ajh47oqcn" path="res://scenes/Props/puzzle/coon_door.tscn" id="3_k6gmx"]
 [ext_resource type="PackedScene" uid="uid://dhtmwvejbq4jk" path="res://scenes/Props/puzzle/button.tscn" id="4_iiq8u"]
 [ext_resource type="PackedScene" uid="uid://ckhob34m8mya" path="res://scenes/Props/puzzle/jump_pad.tscn" id="6_ao5t4"]
 [ext_resource type="PackedScene" uid="uid://db2jx73sb1a0o" path="res://scenes/Props/moving_platform.tscn" id="7_s37wv"]
+[ext_resource type="PackedScene" uid="uid://dl4wwdno3teag" path="res://scenes/Props/primitive_physics_prop.tscn" id="8_b83kv"]
+[ext_resource type="PackedScene" uid="uid://cr422lad47gaj" path="res://scenes/Props/puzzle/pressure_plate.tscn" id="9_coxin"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dcfi6"]
+render_priority = 0
+shader = ExtResource("1_dcfi6")
 
 [sub_resource type="Environment" id="Environment_k6gmx"]
 ambient_light_source = 2
@@ -23,7 +30,6 @@ size = Vector3(1.955, 0.245, 1.42)
 [sub_resource type="Curve3D" id="Curve3D_dcfi6"]
 
 [sub_resource type="Curve3D" id="Curve3D_s37wv"]
-closed = true
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0),
 "tilts": PackedFloat32Array(0, 0)
@@ -49,14 +55,27 @@ omni_range = 7.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3, 17)
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(0.965926, 1.13133e-08, -0.258819, 0.258819, -4.2222e-08, 0.965926, 0, -1, -4.37114e-08, 27.2, 5.9, 17)
-spot_range = 7.0
+transform = Transform3D(0.538986, 0.34202, -0.769751, 0.819152, -2.50718e-08, 0.573577, 0.196175, -0.939693, -0.280166, 24.9, 4.7, 15.2)
+spot_range = 9.0
 spot_attenuation = -0.75
-spot_angle = 22.4593
+spot_angle = 23.2694
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 0, 0, 0)
 light_energy = 0.04
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.8, 14.45, 24.05)
+omni_range = 7.0
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.939693, -1.49502e-08, 0.34202, -0.34202, -4.10753e-08, 0.939693, 0, -1, -4.37114e-08, 36.9, 9.65, 25.75)
+light_energy = 1.377
+light_indirect_energy = 1.358
+spot_range = 12.31
+spot_attenuation = -0.01
+spot_angle = 17.07
+spot_angle_attenuation = 0.683021
 
 [node name="Map Geometry" type="Node" parent="."]
 
@@ -131,31 +150,59 @@ flip_faces = true
 size = Vector3(16, 8, 4)
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Map Geometry/Room Walls/Platforming 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 2.5, 17)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 2.5, 17)
 flip_faces = true
-size = Vector3(7, 5, 4)
+size = Vector3(5, 5, 4)
 
-[node name="Door" type="CSGCombiner3D" parent="Map Geometry/Room Walls/Platforming 1"]
+[node name="Door" type="CSGCombiner3D" parent="Map Geometry/Room Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 17)
 operation = 2
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Map Geometry/Room Walls/Platforming 1/Door"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Map Geometry/Room Walls/Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4995, 0)
 flip_faces = true
 size = Vector3(1, 5, 4)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Map Geometry/Room Walls/Platforming 1/Door"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map Geometry/Room Walls/Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7495, 0)
 operation = 2
 flip_faces = true
 size = Vector3(1, 3.5, 2.4)
 
-[node name="Platforming 2" type="CSGCombiner3D" parent="Map Geometry/Room Walls"]
+[node name="Up Above" type="CSGCombiner3D" parent="Map Geometry/Room Walls"]
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="Map Geometry/Room Walls/Platforming 2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 2.5, 17)
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map Geometry/Room Walls/Up Above"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 7.5, 21)
 flip_faces = true
-size = Vector3(10, 5, 4)
+size = Vector3(10, 15, 12)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Map Geometry/Room Walls/Up Above"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5, 13.15, 24.55)
+flip_faces = true
+size = Vector3(7, 3.7, 3.9)
+
+[node name="Door2" type="CSGCombiner3D" parent="Map Geometry/Room Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.1, 11.3, 24.6)
+operation = 2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map Geometry/Room Walls/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8495, 0)
+flip_faces = true
+size = Vector3(1, 3.7, 4)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map Geometry/Room Walls/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5495, 0)
+operation = 2
+flip_faces = true
+size = Vector3(1, 3.1, 2.4)
+
+[node name="Glass" type="CSGCombiner3D" parent="Map Geometry"]
+material_override = SubResource("ShaderMaterial_dcfi6")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map Geometry/Glass"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.8, 8.65, 24.8)
+size = Vector3(2.4, 5.3, 4.4)
 
 [node name="Props" type="Node" parent="."]
 
@@ -167,6 +214,16 @@ conditions = [NodePath("../Button")]
 
 [node name="Button" parent="Props/Introduce the interaction system" instance=ExtResource("4_iiq8u")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, -4, 2)
+
+[node name="Up room props" type="Node" parent="Props"]
+
+[node name="Pressure Plate" parent="Props/Up room props" instance=ExtResource("9_coxin")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6, 0.3, 17.7)
+
+[node name="JumpPad2" parent="Props/Up room props" node_paths=PackedStringArray("conditions") instance=ExtResource("6_ao5t4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.7, 0, 19.7)
+jumpPadPower = 20.0
+conditions = [NodePath("../Pressure Plate")]
 
 [node name="The Coon" parent="." instance=ExtResource("2_j43gt")]
 transform = Transform3D(-1.17, 0, 1.02285e-07, 0, 1.17, 0, -1.02285e-07, 0, -1.17, -0.015302, -3, -3.40808)
@@ -182,19 +239,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 17)
 mesh = SubResource("BoxMesh_b83kv")
 collision = SubResource("BoxShape3D_coxin")
 path = SubResource("Curve3D_dcfi6")
-pingPong = null
 
 [node name="Platform2" parent="." instance=ExtResource("7_s37wv")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.0086, -1.19209e-07, 16.0233)
 mesh = SubResource("BoxMesh_b83kv")
 collision = SubResource("BoxShape3D_coxin")
 path = SubResource("Curve3D_dcfi6")
-pingPong = null
 
 [node name="Platform3" parent="." instance=ExtResource("7_s37wv")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 19.1086, -1.19209e-07, 18.0233)
 mesh = SubResource("BoxMesh_b83kv")
 collision = SubResource("BoxShape3D_coxin")
 path = SubResource("Curve3D_s37wv")
-duration = 8.0
-pingPong = null
+duration = 4.0
+
+[node name="BasicPhysicsProp" parent="." instance=ExtResource("8_b83kv")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 33, 1, 25)
+mass = 2.0
+size = 0.356

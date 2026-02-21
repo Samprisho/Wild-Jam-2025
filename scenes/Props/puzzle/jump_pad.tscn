@@ -1,23 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckhob34m8mya"]
+[gd_scene load_steps=5 format=4 uid="uid://ckhob34m8mya"]
 
 [ext_resource type="Script" uid="uid://hwy2o1r3ryf4" path="res://scripts/Props/jump_pad.gd" id="1_te11f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te11f"]
-albedo_color = Color(0, 1, 1, 1)
+resource_local_to_scene = true
+albedo_color = Color(0.529, 1, 1, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_te11f"]
+resource_local_to_scene = true
+_surfaces = [{
+"aabb": AABB(-0.5, -0.1, -0.5, 1, 0.2, 1),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("AAAAv83MzL0AAAA/AAAAv83MzL0AAAC/AAAAv83MzD0AAAC/AAAAP83MzL0AAAC/AAAAv83MzL0AAAC/AAAAv83MzL0AAAA/AAAAv83MzD0AAAC/AAAAv83MzL0AAAC/AAAAP83MzL0AAAC/AAAAv83MzD0AAAC/AAAAv83MzD0AAAA/AAAAv83MzL0AAAA/AAAAv83MzL0AAAA/AAAAv83MzD0AAAA/AAAAP83MzD0AAAA/AAAAP83MzD0AAAA/AAAAv83MzD0AAAA/AAAAv83MzD0AAAC/AAAAv83MzL0AAAA/AAAAP83MzL0AAAA/AAAAP83MzL0AAAC/AAAAP83MzD0AAAA/AAAAP83MzL0AAAA/AAAAv83MzL0AAAA/AAAAP83MzL0AAAC/AAAAP83MzL0AAAA/AAAAP83MzD0AAAA/AAAAP83MzL0AAAC/AAAAP83MzD0AAAC/AAAAv83MzD0AAAC/AAAAv83MzD0AAAC/AAAAP83MzD0AAAC/AAAAP83MzD0AAAA/AAAAP83MzD0AAAA/AAAAP83MzD0AAAC/AAAAP83MzL0AAAC/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
+}]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_te11f"]
 size = Vector3(1.1, 0.3, 1.1)
 
-[node name="JumpPad" type="Node3D" node_paths=PackedStringArray("detactionArea", "launchDirectionNode")]
+[node name="JumpPad" type="Node3D" node_paths=PackedStringArray("detactionArea", "launchDirectionNode", "mesh")]
 script = ExtResource("1_te11f")
 detactionArea = NodePath("DetctionArea")
 launchDirectionNode = NodePath("LaunchDirection")
+mesh = NodePath("CSGBakedMeshInstance3D")
 metadata/_custom_type_script = "uid://ccajhpbu65idv"
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-size = Vector3(1, 0.2, 1)
-material = SubResource("StandardMaterial3D_te11f")
+material_override = SubResource("StandardMaterial3D_te11f")
+mesh = SubResource("ArrayMesh_te11f")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
 transform = Transform3D(1.05, 0, 0, 0, 1, 0, 0, 0, 1.05, 0, 0.05, 0)
