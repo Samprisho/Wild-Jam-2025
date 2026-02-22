@@ -114,6 +114,7 @@ buffering/agile_event_flushing=true
 
 common/physics_ticks_per_second=66
 2d/physics_engine="Dummy"
+3d/physics_engine="GodotPhysics3D"
 3d/default_gravity=17.115
 2d/default_gravity=1296.04
 

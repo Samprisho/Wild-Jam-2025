@@ -22,7 +22,7 @@ size = Vector3(2.5, 1.2, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_mouoi"]
 size = Vector3(1, 1, 3)
 
-[node name="The Coon" type="CharacterBody3D" node_paths=PackedStringArray("camera", "interaction")]
+[node name="The Coon" type="CharacterBody3D" node_paths=PackedStringArray("camera", "interaction", "movement")]
 top_level = true
 collision_layer = 2
 collision_mask = 3
@@ -32,6 +32,7 @@ platform_wall_layers = 1
 script = ExtResource("1_bhtm4")
 camera = NodePath("CameraComponent")
 interaction = NodePath("Camera3D/InteractionComponent")
+movement = NodePath("CoonMovementComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, 0)

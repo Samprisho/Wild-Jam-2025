@@ -223,6 +223,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6, 0.3, 17.7)
 [node name="JumpPad2" parent="Props/Up room props" node_paths=PackedStringArray("conditions") instance=ExtResource("6_ao5t4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.7, 0, 19.7)
 jumpPadPower = 20.0
+simulationTime = 2.0
 conditions = [NodePath("../Pressure Plate")]
 
 [node name="The Coon" parent="." instance=ExtResource("2_j43gt")]
@@ -233,6 +234,7 @@ environment = SubResource("Environment_k6gmx")
 
 [node name="JumpPad" parent="." instance=ExtResource("6_ao5t4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -3, 18)
+simulationTime = 2.0
 
 [node name="Platform" parent="." instance=ExtResource("7_s37wv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 17)

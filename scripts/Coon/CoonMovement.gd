@@ -1,3 +1,4 @@
+@tool
 extends Node
 class_name CoonMovement
 
@@ -38,6 +39,7 @@ var collisionMesh: CapsuleMesh
 
 var clientRotation: Vector3 = Vector3.ZERO
 var GRAVITY: float = ProjectSettings.get("physics/3d/default_gravity")
+var PHYSICS_DELTA: float = 1.0 / ProjectSettings.get("physics/common/physics_ticks_per_second")
 
 var pastInputs = {}
 var pastStates = {}
@@ -48,8 +50,6 @@ var lastInput: CoonInputContainer
 var timeStamp: int = 0
 
 class CoonStateContainer:
-	
-
 	func _init(body:Coon) -> void:
 		self.statePosition = body.position
 		self.stateVelocity = body.velocity
@@ -70,7 +70,7 @@ class CoonStateContainer:
 	var movementState: EMovementState = EMovementState.GROUNDED
 
 class CoonInputContainer:
-	func _init(axis, jumping, crouching) -> void:
+	func _init(axis: Vector2, jumping: bool, crouching: bool) -> void:
 		self.inputaxis = axis
 		self.attemptingJump = jumping
 		self.attemptingCrouch = crouching
@@ -90,15 +90,20 @@ class CoonInputContainer:
 
 	
 func _physics_process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	if body.relatedBall:
 		if body.relatedBall.coonInside:
 			return
 			
 	if ClientControls.paused:
 			return
+
 	
 	clear_past_history()
 	
+
 	var inputDir: Vector2 = Vector2(
 		# Remember, -Z is forward, and Z is backward
 		Input.get_axis("Forward", "Backward"),
@@ -136,7 +141,7 @@ func is_inputting_directions(input: CoonInputContainer) -> bool:
 
 	return axis.length() != 0
 
-func simulate(input: CoonInputContainer, state: CoonStateContainer):
+func simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonStateContainer:
 	var newState: CoonStateContainer
 
 	if state.stateOnFloor:
@@ -146,25 +151,28 @@ func simulate(input: CoonInputContainer, state: CoonStateContainer):
 		newState = air_simulate(input, state)
 		newState.movementState = EMovementState.AIRBORNE
 	
-	if stateChart:
-		if state.stateOnFloor == true and newState.stateOnFloor == false:
-			stateChart.send_event("jump")
-		
-		if state.stateOnFloor == false and newState.stateOnFloor == true:
-			stateChart.send_event("grounded")
+	if not Engine.is_editor_hint():
+		if stateChart:
+			if state.stateOnFloor == true and newState.stateOnFloor == false:
+				stateChart.send_event("jump")
+			
+			if state.stateOnFloor == false and newState.stateOnFloor == true:
+				stateChart.send_event("grounded")
 
-		if state.stateOnFloor == false and newState.stateOnFloor == false and \
-		  sign(state.stateVelocity.y) != sign(newState.stateVelocity.y):
-			stateChart.send_event("stale") 
+			if state.stateOnFloor == false and newState.stateOnFloor == false and \
+			  sign(state.stateVelocity.y) != sign(newState.stateVelocity.y):
+				stateChart.send_event("stale") 
 
-	ClientUi.showPos.emit(newState.to_string() + pastInputs[timeStamp].to_string())
+		ClientUi.showPos.emit(newState.to_string() + pastInputs[timeStamp].to_string())
+	
 	return newState
 
 
 func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	var dir := normalized_dir_from_axis(input.inputaxis)
-	var delta = get_physics_process_delta_time()
-
+	var delta = PHYSICS_DELTA
+	
+	print(delta)
 	body.position = state.statePosition
 	body.velocity = state.stateVelocity
 	
@@ -187,6 +195,7 @@ func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 		accel_speed = speed_to_add
 	
 	body.velocity += wish_normal * accel_speed
+	
 	
 	if velWithouty.length() > max_air_speed:
 		var target = Vector3.ZERO
@@ -216,11 +225,11 @@ func ground_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	# TODO: Clean up unreadable codebelow
 	body.velocity += dir * \
 		(ground_acceleration if dirDiff > 0 else ground_acceleration * ground_counteract_factor) \
-		* get_physics_process_delta_time()
+		* PHYSICS_DELTA
 
 	if body.velocity.length() > max_ground_speed or not is_inputting_directions(input):
 		body.velocity = body.velocity.move_toward(
-			Vector3.ZERO, ground_friction * get_physics_process_delta_time()
+			Vector3.ZERO, ground_friction * PHYSICS_DELTA
 		)
 	
 	if input.attemptingJump:

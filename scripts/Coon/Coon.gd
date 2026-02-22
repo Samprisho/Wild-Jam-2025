@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody3D
 class_name Coon
 
@@ -5,10 +6,12 @@ class_name Coon
 @export var camera: CoonCameraComponent
 @export var interaction: InteractionComponent
 @export var embarkRange: float = 4
-
-@onready var movement: CoonMovement = $CoonMovementComponent
+@export var movement: CoonMovement
 
 func _input(event: InputEvent) -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	if Input.is_action_just_pressed("ToggleMode") and relatedBall and relatedBall.embarkTimer.is_stopped():
 		var distance = relatedBall.global_position.distance_to(global_position)
 		print("embarked: ", distance)
@@ -36,6 +39,8 @@ func switch_to_coon_mode() -> bool:
 	return true
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func apply_impulse(velocity: Vector3, overrideVelocity: bool):

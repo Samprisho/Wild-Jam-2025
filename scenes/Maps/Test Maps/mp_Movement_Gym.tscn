@@ -110,12 +110,13 @@ text = "Reward players when transitioning to different parts of a course."
 autowrap_mode = 2
 
 [node name="JumpPad" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition" node_paths=PackedStringArray("launchDirectionNode") instance=ExtResource("3_oqxh5")]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -2.1713, 3.4, -3.83166)
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -2.1713, 2.5, -3.33166)
 launchDirectionNode = NodePath("Node3D")
 jumpPadPower = 25.0
+simulationTime = 2.0
 
 [node name="Node3D" type="Marker3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition/JumpPad"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 2.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 9.2, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="World Geometry/All about jumping/Cavity jump to Jump Pad Transition"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.49678, -2.5)
@@ -192,10 +193,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 3.68998)
 polygon = PackedVector2Array(0, 0, 0, 1, 1, 0, 1, 0)
 depth = 1.25
 
-[node name="JumpPad" parent="World Geometry/All about jumping/To the moon!" instance=ExtResource("3_oqxh5")]
-transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 0.979086, 1.02169, 3.06834)
-jumpPadPower = 20.0
-
 [node name="Glass" type="CSGCombiner3D" parent="World Geometry"]
 material_override = SubResource("ShaderMaterial_nrof2")
 use_collision = true
@@ -222,5 +219,15 @@ destinationNode = NodePath("../Teleporter2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0378, 4.76837e-07, -15.3277)
 destinationNode = NodePath("../Teleporter")
 
+[node name="JumpPad" parent="Props" instance=ExtResource("3_oqxh5")]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, -9.14961, 6.02169, 6.4)
+jumpPadPower = 20.0
+simulationTime = 10.0
+
+[node name="JumpPad2" parent="Props" instance=ExtResource("3_oqxh5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, 0, -8.3)
+jumpPadPower = 15.0
+simulationTime = 2.0
+
 [node name="The Coon" parent="." instance=ExtResource("2_ml3o4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 11.5)
