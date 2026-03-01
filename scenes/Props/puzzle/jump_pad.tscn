@@ -28,7 +28,6 @@ script = ExtResource("1_te11f")
 detactionArea = NodePath("DetctionArea")
 launchDirectionNode = NodePath("LaunchDirection")
 mesh = NodePath("CSGBakedMeshInstance3D")
-simulationTime = null
 simulationPath = NodePath("simulationpath")
 metadata/_custom_type_script = "uid://ccajhpbu65idv"
 

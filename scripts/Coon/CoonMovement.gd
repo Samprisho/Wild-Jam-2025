@@ -213,8 +213,7 @@ func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 
 func ground_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	var dir = normalized_dir_from_axis(input.inputaxis)
-
-
+	
 	body.position = state.statePosition
 	body.velocity = state.stateVelocity
 

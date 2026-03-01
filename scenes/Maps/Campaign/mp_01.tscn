@@ -65,11 +65,11 @@ transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 0, 0, 
 light_energy = 0.04
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.8, 14.45, 24.05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.5, 14.45, 24.05)
 omni_range = 7.0
 
 [node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(0.939693, -1.49502e-08, 0.34202, -0.34202, -4.10753e-08, 0.939693, 0, -1, -4.37114e-08, 36.9, 9.65, 25.75)
+transform = Transform3D(0.939693, -1.49502e-08, 0.34202, -0.34202, -4.10753e-08, 0.939693, 0, -1, -4.37114e-08, 82.6, 9.65, 25.75)
 light_energy = 1.377
 light_indirect_energy = 1.358
 spot_range = 12.31
@@ -154,6 +154,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 2.5, 17)
 flip_faces = true
 size = Vector3(5, 5, 4)
 
+[node name="Platforming 2" type="CSGCombiner3D" parent="Map Geometry/Room Walls"]
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map Geometry/Room Walls/Platforming 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 2.5, 17)
+flip_faces = true
+size = Vector3(6, 5, 4)
+
 [node name="Door" type="CSGCombiner3D" parent="Map Geometry/Room Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 17)
 operation = 2
@@ -170,28 +177,29 @@ flip_faces = true
 size = Vector3(1, 3.5, 2.4)
 
 [node name="Up Above" type="CSGCombiner3D" parent="Map Geometry/Room Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 0)
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="Map Geometry/Room Walls/Up Above"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 7.5, 21)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.7, 7.5, 21)
 flip_faces = true
 size = Vector3(10, 15, 12)
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="Map Geometry/Room Walls/Up Above"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5, 13.15, 24.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.2, 13.15, 24.55)
 flip_faces = true
 size = Vector3(7, 3.7, 3.9)
 
 [node name="Door2" type="CSGCombiner3D" parent="Map Geometry/Room Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.1, 11.3, 24.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.8, 11.3, 24.6)
 operation = 2
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map Geometry/Room Walls/Door2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8495, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8, 1.8495, 0)
 flip_faces = true
 size = Vector3(1, 3.7, 4)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Map Geometry/Room Walls/Door2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5495, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8, 1.5495, 0)
 operation = 2
 flip_faces = true
 size = Vector3(1, 3.1, 2.4)
@@ -201,7 +209,7 @@ material_override = SubResource("ShaderMaterial_dcfi6")
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map Geometry/Glass"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.8, 8.65, 24.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.5, 8.65, 24.8)
 size = Vector3(2.4, 5.3, 4.4)
 
 [node name="Props" type="Node" parent="."]
@@ -218,10 +226,10 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, -
 [node name="Up room props" type="Node" parent="Props"]
 
 [node name="Pressure Plate" parent="Props/Up room props" instance=ExtResource("9_coxin")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6, 0.3, 17.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.3, 0.3, 17.7)
 
 [node name="JumpPad2" parent="Props/Up room props" node_paths=PackedStringArray("conditions") instance=ExtResource("6_ao5t4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.7, 0, 19.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.4, 0, 19.7)
 jumpPadPower = 20.0
 simulationTime = 2.0
 conditions = [NodePath("../Pressure Plate")]
@@ -256,6 +264,13 @@ path = SubResource("Curve3D_s37wv")
 duration = 4.0
 
 [node name="BasicPhysicsProp" parent="." instance=ExtResource("8_b83kv")]
-transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 33, 1, 25)
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 78.7, 1, 25)
 mass = 2.0
 size = 0.356
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 42, 8, 20)
+text = "We are introducing too much puzzle props at short time. We need the player to get a solid grip on basic platforming and movement before we introduce them to puzzle props.
+
+We need to do this because the player needs to learn to go fast. The purpose of the next few sections will try to accomplish that."
+autowrap_mode = 2

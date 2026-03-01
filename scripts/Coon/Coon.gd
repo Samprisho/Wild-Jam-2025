@@ -7,6 +7,7 @@ class_name Coon
 @export var interaction: InteractionComponent
 @export var embarkRange: float = 4
 @export var movement: CoonMovement
+@export var collisionShape: CollisionShape3D
 
 func _input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():
@@ -21,6 +22,7 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Interact"):
 		if interaction:
 			interaction.interact()
+
 
 
 func switch_to_coon_mode() -> bool:
@@ -48,6 +50,7 @@ func apply_impulse(velocity: Vector3, overrideVelocity: bool):
 		movement.lastState.stateVelocity = velocity
 	else:
 		movement.lastState.stateVelocity += velocity
+
 func _on_airborne_state_entered() -> void:
 	print("Now airborne") 
 
