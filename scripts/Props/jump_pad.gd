@@ -8,11 +8,14 @@ class_name JumpPad
 ## The jump pad will propel whatever lands on it towards the [member launchDirectionNode]
 
 @export var detactionArea: Area3D
-@export var launchDirectionNode: Marker3D
+@export var launchDirectionNode: Node3D
 @export var mesh: MeshInstance3D
 
 @export_category("Launch properties")
-@export var jumpPadPower: float = 13
+@export var jumpPadPower: float = 13:
+	set(newPower):
+		jumpPadPower = newPower
+		call_deferred("_on_see_jump_path")
 @export var velocityOverride: bool = true
 @export_category("Simulate")
 @export var simulationTime: float = 2
