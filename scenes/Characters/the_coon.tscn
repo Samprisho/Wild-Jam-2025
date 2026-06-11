@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dr64bo2d36v0n"]
+[gd_scene load_steps=16 format=3 uid="uid://dr64bo2d36v0n"]
 
 [ext_resource type="Script" uid="uid://biykxsftwgexj" path="res://scripts/Coon/Coon.gd" id="1_bhtm4"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_gvuuu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b4dwolbvt8our" path="res://addons/godot_state_charts/history_state.gd" id="6_lecfq"]
 [ext_resource type="Script" uid="uid://w4alis18y2m2" path="res://scripts/Coon/CoonCameraComponent.gd" id="8_gfjo4"]
 [ext_resource type="Script" uid="uid://bh6imr7qjbndv" path="res://scripts/Coon/InteractionComponent.gd" id="9_mouoi"]
+[ext_resource type="Script" uid="uid://dw0t7rpc2vlro" path="res://scripts/Coon/HealthComponent.gd" id="10_8ervh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ku830"]
 
@@ -104,16 +105,6 @@ to = NodePath("../../Grounded")
 event = &"grounded"
 delay_in_seconds = "0.0"
 
-[node name="CoonMovementComponent" type="Node" parent="." node_paths=PackedStringArray("body", "camera", "stateChart")]
-script = ExtResource("6_bhtm4")
-body = NodePath("..")
-camera = NodePath("../CameraComponent")
-stateChart = NodePath("../StateChart")
-ground_counteract_factor = 3.0
-ground_friction = 30.0
-jump_veloctiy = 7.0
-push_force = 2.0
-
 [node name="CameraComponent" type="SpringArm3D" parent="." node_paths=PackedStringArray("coonCam", "coonBody", "staticTarget", "characterMesh", "risingState")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 shape = SubResource("SphereShape3D_lecfq")
@@ -145,3 +136,18 @@ shape = SubResource("BoxShape3D_cvn5d")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Camera3D/InteractionComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -1.25)
 shape = SubResource("BoxShape3D_mouoi")
+
+[node name="CoonMovementComponent" type="Node" parent="." node_paths=PackedStringArray("body", "camera", "stateChart")]
+script = ExtResource("6_bhtm4")
+body = NodePath("..")
+camera = NodePath("../CameraComponent")
+stateChart = NodePath("../StateChart")
+ground_counteract_factor = 3.0
+ground_friction = 30.0
+jump_veloctiy = 7.0
+push_force = 2.0
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("10_8ervh")
+
+[connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]

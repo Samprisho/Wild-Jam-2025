@@ -7,13 +7,22 @@ enum EPrimitiveType {
 	CYLINDER
 }
 
-
-
 var grabbed: bool = false
 var grabber: Coon
 var grabTimer: Timer
+var tracker: NodeTracker
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	tracker = TimeKeeper.register_node(self,
+		["global_position", "global_rotation", "angular_velocity", "linear_velocity"]
+	)
+	tracker.on_restored.connect(_on_state_restored)
+	
+	
+	
 	grabTimer = $grabTimer
 	
 	var interaction: InteractionComponent = $InteractionComponent
@@ -34,6 +43,9 @@ func _ready() -> void:
 	)
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	if grabbed and grabber:
 		var targetPos = grabber.camera.coonCam.global_position + (-grabber.camera.global_basis.z * (size * 4))
 		
@@ -43,6 +55,7 @@ func _physics_process(delta: float) -> void:
 		
 		linear_velocity = (targetPos - position) * 30
 		look_at(grabber.camera.coonCam.global_position)
+	
 
 func let_go():
 	grabbed = false
@@ -99,3 +112,9 @@ func _reset_properties():
 func _on_body_entered(body: Node) -> void:
 	if body is CharacterBody3D:
 		let_go()
+
+func _on_state_restored(node: Node, timestamp: int):
+	pass
+
+func get_node_tracker() -> NodeTracker:
+	return tracker

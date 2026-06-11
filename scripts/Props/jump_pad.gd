@@ -45,6 +45,8 @@ func _on_see_jump_path():
 	
 	simulationPath.curve = curve
 	simulationPath.global_position = global_position
+	
+	
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -84,16 +86,12 @@ func _on_body_detected(body: Node3D):
 	if body is Coon:
 		_launch_coon(body)
 	
-	print("Jumping ", body.name)
 
 func _launch_coon(body: Coon):
-		print("Coon detected")
 		body.velocity.y = 0
 		var result: Vector3 = Vector3.ZERO
 		var direction = global_position.direction_to(launchDirectionNode.global_position)
 		
 		result = direction * jumpPadPower + body.velocity
-		
-		print(result)
 		
 		body.apply_impulse(result, velocityOverride)

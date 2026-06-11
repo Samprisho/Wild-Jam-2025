@@ -85,31 +85,24 @@ visible = false
 
 [node name="BasicPhysicsProp" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60236, 2.91481, -2.80922)
-primitive = 1
 
 [node name="BasicPhysicsProp2" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96622, 2.91481, -2.80922)
-primitive = 1
 
 [node name="BasicPhysicsProp3" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60236, 2.91481, -3.84329)
-primitive = 1
 
 [node name="BasicPhysicsProp4" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96622, 2.91481, -3.84329)
-primitive = 1
 
 [node name="BasicPhysicsProp5" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60236, 4.00461, -2.80922)
-primitive = 1
 
 [node name="BasicPhysicsProp6" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96622, 4.00461, -2.80922)
-primitive = 1
 
 [node name="BasicPhysicsProp7" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60236, 4.00461, -3.84329)
-primitive = 1
 
 [node name="BasicPhysicsProp9" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(-4.38076e-08, -1.0022, 0, 1.0022, -4.38076e-08, 0, 0, 0, 1.0022, 17.8761, 25.9014, -1.22387)
@@ -118,12 +111,10 @@ size = 2.06
 
 [node name="BasicPhysicsProp10" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1.0022, 0, 0, 0, 1.0022, 0, 0, 0, 1.0022, 1.95385, -3.35046, -15.9492)
-primitive = 1
 size = 1.71
 
 [node name="BasicPhysicsProp11" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
 transform = Transform3D(1.0022, 0, 0, 0, 1.0022, 0, 0, 0, 1.0022, 3.74466, -3.35046, -15.9492)
-primitive = 1
 size = 1.71
 
 [node name="BasicPhysicsProp8" parent="PhysicsProps" instance=ExtResource("4_3wwu6")]
@@ -131,7 +122,6 @@ transform = Transform3D(1.0022, 0, 0, 0, 1.0022, 0, 0, 0, 1.0022, -6.12226, 1.60
 mass = 43.288
 gravity_scale = 3.494
 can_sleep = false
-primitive = 1
 
 [node name="Platforms" type="Node3D" parent="."]
 
@@ -151,6 +141,7 @@ transform = Transform3D(1, 0, 1.49012e-08, 0, 1, 0, -1.49012e-08, 0, 1, 0, 0.049
 shape = SubResource("CylinderShape3D_1fooq")
 
 [node name="Path3D" parent="Platforms/Platform" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, -8)
 curve = SubResource("Curve3D_sg5sg")
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("3_01l5h")]

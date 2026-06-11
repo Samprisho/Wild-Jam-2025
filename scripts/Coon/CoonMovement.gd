@@ -7,6 +7,8 @@ class_name CoonMovement
 
 @export var stateChart: StateChart
 
+@export var canMove: bool = true
+
 @export_category("Grounded")
 @export var ground_acceleration: float = 20
 @export var ground_counteract_factor: float = 5
@@ -48,6 +50,8 @@ var lastState: CoonStateContainer
 var lastInput: CoonInputContainer
 
 var timeStamp: int = 0
+
+
 
 class CoonStateContainer:
 	func _init(body:Coon) -> void:
@@ -103,18 +107,21 @@ func _physics_process(_delta: float) -> void:
 	
 	clear_past_history()
 	
-
-	var inputDir: Vector2 = Vector2(
-		# Remember, -Z is forward, and Z is backward
-		Input.get_axis("Forward", "Backward"),
-		Input.get_axis("Left", "Right")
-	)
-
-	var jumping: bool = Input.is_action_pressed("Jump")
-
-	var crouching: bool = Input.is_action_pressed("Ability 1")
+	var inputDir: Vector2 = Vector2.ZERO
+	var jumping: bool = false
+	var crouching: bool = false
+	
+	if canMove:
+		inputDir = Vector2(
+			# Remember, -Z is forward, and Z is backward
+			Input.get_axis("Forward", "Backward"),
+			Input.get_axis("Left", "Right")
+		)
+		jumping = Input.is_action_pressed("Jump")
+		crouching = Input.is_action_pressed("Ability 1")
 
 	var input = CoonInputContainer.new(inputDir, jumping, crouching)
+	
 	pastInputs[timeStamp] = input
 	lastInput = input
 	

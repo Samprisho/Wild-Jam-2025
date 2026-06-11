@@ -2,12 +2,16 @@
 extends CharacterBody3D
 class_name Coon
 
+
+
 @export var relatedBall: Ball
 @export var camera: CoonCameraComponent
 @export var interaction: InteractionComponent
 @export var embarkRange: float = 4
 @export var movement: CoonMovement
 @export var collisionShape: CollisionShape3D
+
+var tracker: NodeTracker
 
 func _input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():
@@ -43,7 +47,9 @@ func switch_to_coon_mode() -> bool:
 func _ready():
 	if Engine.is_editor_hint():
 		return
+	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	GameSaver.playerMovement = movement
 
 func apply_impulse(velocity: Vector3, overrideVelocity: bool):
 	if overrideVelocity:
@@ -51,13 +57,10 @@ func apply_impulse(velocity: Vector3, overrideVelocity: bool):
 	else:
 		movement.lastState.stateVelocity += velocity
 
-func _on_airborne_state_entered() -> void:
-	print("Now airborne") 
+func _on_health_component_death() -> void:
+	movement.canMove = false
+	camera.position -= Vector3(0, 1, 0)
+	camera.coonCam.rotation_degrees += Vector3(0, 0, 90)
 
-
-func _on_rising_state_entered() -> void:
-	print("rising up")
-
-
-func _on_grounded_state_entered() -> void:
-	print("on my feet")
+func _on_state_restored():
+	pass

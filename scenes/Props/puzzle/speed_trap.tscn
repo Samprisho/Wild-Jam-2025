@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=4 uid="uid://dplhj76smvlau"]
+
+[ext_resource type="Script" uid="uid://4agfm4aufpyt" path="res://scripts/Props/speed_trap.gd" id="1_3canl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3canl"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3canl"]
+points = PackedVector3Array(-4, 2, 0, -4, 0, 0, 4, 2, 0, 4, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sy6qm"]
+cull_mode = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3canl"]
+_surfaces = [{
+"aabb": AABB(-4, 0, 0, 8, 2, 1e-05),
+"format": 34359738369,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("AACAwAAAAEAAAAAAAACAwAAAAAAAAAAAAACAQAAAAAAAAAAAAACAQAAAAEAAAAAAAACAQAAAAAAAAAAAAACAwAAAAEAAAAAA")
+}]
+
+[node name="SpeedTrap" type="Node3D" node_paths=PackedStringArray("collisionDisplay", "detectionArea", "detectionShape", "displayText", "start", "end")]
+script = ExtResource("1_3canl")
+required_speed = 3.5
+collisionDisplay = NodePath("CollisionDisplay")
+detectionArea = NodePath("Area3D")
+detectionShape = NodePath("Area3D/CollisionShape3D")
+displayText = NodePath("Display")
+start = NodePath("Start")
+end = NodePath("End")
+metadata/_custom_type_script = "uid://ccajhpbu65idv"
+
+[node name="Display" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1, 0)
+billboard = 1
+text = "0.00 / 3.5"
+font_size = 123
+
+[node name="Start" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 0)
+mesh = SubResource("BoxMesh_3canl")
+
+[node name="End" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 0)
+mesh = SubResource("BoxMesh_3canl")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("ConvexPolygonShape3D_3canl")
+
+[node name="CollisionDisplay" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_sy6qm")
+transparency = 0.81
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_3canl")

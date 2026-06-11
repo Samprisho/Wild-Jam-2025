@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl4k5ck1rt4ot"]
+
+[ext_resource type="Script" uid="uid://crejg0pej670" path="res://scripts/Props/death_pad.gd" id="1_7ea8o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hw4g4"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7ea8o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_serdu"]
+size = Vector3(1.77319, 0.001, 1.84961)
+
+[node name="deathPad" type="Node3D" node_paths=PackedStringArray("collision")]
+script = ExtResource("1_7ea8o")
+collision = NodePath("Area3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_hw4g4")
+mesh = SubResource("PlaneMesh_7ea8o")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_serdu")
