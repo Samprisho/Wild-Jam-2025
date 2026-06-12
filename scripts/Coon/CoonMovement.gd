@@ -17,6 +17,12 @@ class_name CoonMovement
 @export var jump_veloctiy: float = 9
 @export var push_force: float = 1
 
+@export_category("Sliding")
+@export var ticksUntilBraking: int = 20
+@export var slidingFrictionCoeffecient: float = 0
+@export var slidingBrakingFriction: float = 0.5
+@export var slidingSpeedRequirement: float = 3.5
+
 @export_category("Airborne")
 @export var air_acceleration: float = 2.7
 @export var air_slowdown_factor: float = 10
@@ -33,6 +39,8 @@ var MAX_DICT_HISTORY_LENGTH = floor(ProjectSettings.get("physics/common/physics_
 
 enum EMovementState{
 	GROUNDED = 0,
+	CROUCHING,
+	SLIDING,
 	AIRBORNE,
 	WALLRUNNING,
 	MANTLE
@@ -65,13 +73,15 @@ class CoonStateContainer:
 		result += "State: " + str(movementState) + "\n"
 		result += "Pos: "+ str(statePosition) + "\n" 
 		result += "Vel: "+ str(Vector2(stateVelocity.x, stateVelocity.z).length()) \
-				+ " Y: "+ str(stateVelocity.y) + "\n"
-
+					+ " Y: "+ str(stateVelocity.y) + "\n"
 		return result
+	
+	
 	var statePosition: Vector3
 	var stateVelocity: Vector3
 	var stateOnFloor: bool
 	var movementState: EMovementState = EMovementState.GROUNDED
+	var slidingTime: int = 0
 
 class CoonInputContainer:
 	func _init(axis: Vector2, jumping: bool, crouching: bool) -> void:
@@ -103,7 +113,6 @@ func _physics_process(_delta: float) -> void:
 			
 	if ClientControls.paused:
 			return
-
 	
 	clear_past_history()
 	
@@ -152,8 +161,14 @@ func simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonState
 	var newState: CoonStateContainer
 
 	if state.stateOnFloor:
-		newState = ground_simulate(input, state)
-		newState.movementState = EMovementState.GROUNDED
+		if not input.attemptingCrouch || state.stateVelocity.length() < slidingSpeedRequirement:
+			newState = ground_simulate(input, state)
+			newState.movementState = EMovementState.GROUNDED if not input.attemptingCrouch \
+									 else EMovementState.CROUCHING
+			
+		else:
+			newState = sliding_simulate(input, state)
+			newState.movementState = EMovementState.SLIDING
 	else:
 		newState = air_simulate(input, state)
 		newState.movementState = EMovementState.AIRBORNE
@@ -175,11 +190,10 @@ func simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonState
 	return newState
 
 
-func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
+func air_simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonStateContainer:
 	var dir := normalized_dir_from_axis(input.inputaxis)
 	var delta = PHYSICS_DELTA
 	
-	print(delta)
 	body.position = state.statePosition
 	body.velocity = state.stateVelocity
 	
@@ -218,7 +232,7 @@ func air_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	return CoonStateContainer.new(body)
 
 
-func ground_simulate(input: CoonInputContainer, state: CoonStateContainer):
+func ground_simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonStateContainer:
 	var dir = normalized_dir_from_axis(input.inputaxis)
 	
 	body.position = state.statePosition
@@ -232,8 +246,10 @@ func ground_simulate(input: CoonInputContainer, state: CoonStateContainer):
 	body.velocity += dir * \
 		(ground_acceleration if dirDiff > 0 else ground_acceleration * ground_counteract_factor) \
 		* PHYSICS_DELTA
+	
+	var maxSpd = (max_ground_speed * 0.5) if input.attemptingCrouch else max_ground_speed
 
-	if body.velocity.length() > max_ground_speed or not is_inputting_directions(input):
+	if body.velocity.length() > maxSpd or not is_inputting_directions(input):
 		body.velocity = body.velocity.move_toward(
 			Vector3.ZERO, ground_friction * PHYSICS_DELTA
 		)
@@ -251,11 +267,42 @@ func ground_simulate(input: CoonInputContainer, state: CoonStateContainer):
 			
 	return CoonStateContainer.new(body)
 
+func sliding_simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonStateContainer:
+	var t: int = state.slidingTime
+	
 
-func wallrun_simulate(input: CoonInputContainer, state: CoonStateContainer):
+	
+	var iA: Vector2 = input.inputaxis
+	var v1: Vector3 = state.stateVelocity
+	
+	var slidingBraking  = clamp(t - ticksUntilBraking, 0, 30) * slidingBrakingFriction
+	var slidingFriction = slidingBraking + (ground_friction * slidingFrictionCoeffecient)
+	
+	print(slidingFriction)
+	
+	var newV = v1.move_toward(
+		Vector3.ZERO, slidingFriction * PHYSICS_DELTA
+	)
+	
+	if input.attemptingJump:
+		newV.y += jump_veloctiy
+	
+	body.velocity = newV
+	body.move_and_slide()
+	
+	var newState = CoonStateContainer.new(body)
+	newState.slidingTime = t + 1
+	
+	return newState
+
+func wallrun_simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonStateContainer:
 	# TODO: Implement Wallrun
 	body.move_and_slide()
 	return CoonStateContainer.new(body)
+
+
+
+
 
 func clear_past_history():
 	if pastInputs.size() > MAX_DICT_HISTORY_LENGTH:

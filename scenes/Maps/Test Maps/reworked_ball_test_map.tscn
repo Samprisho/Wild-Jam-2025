@@ -141,7 +141,6 @@ transform = Transform3D(1, 0, 1.49012e-08, 0, 1, 0, -1.49012e-08, 0, 1, 0, 0.049
 shape = SubResource("CylinderShape3D_1fooq")
 
 [node name="Path3D" parent="Platforms/Platform" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, -8)
 curve = SubResource("Curve3D_sg5sg")
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("3_01l5h")]
