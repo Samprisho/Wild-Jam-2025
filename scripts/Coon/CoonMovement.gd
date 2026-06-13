@@ -277,9 +277,17 @@ func ground_simulate(input: CoonInputContainer, state: CoonStateContainer) -> Co
 
 func sliding_simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonStateContainer:
 	var iA: Vector2 = input.inputaxis
-	iA.y = clamp(iA.y, 0, 1)
 	
-	var dir = normalized_dir_from_axis(input.inputaxis)
+	iA = iA.clamp(
+		Vector2(
+			0, -1
+		),
+		Vector2(
+			1, 1
+		)
+	)
+	
+	var dir = normalized_dir_from_axis(iA)
 	
 	var t: int = state.slidingTime
 	var v1: Vector3 = state.stateVelocity
