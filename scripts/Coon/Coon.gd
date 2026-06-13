@@ -2,8 +2,6 @@
 extends CharacterBody3D
 class_name Coon
 
-
-
 @export var relatedBall: Ball
 @export var camera: CoonCameraComponent
 @export var interaction: InteractionComponent
@@ -50,6 +48,9 @@ func _ready():
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameSaver.playerMovement = movement
+	
+	movement.collisionMesh = collisionShape.shape as CapsuleShape3D
+	movement.standingHeight = movement.collisionMesh.height
 
 func apply_impulse(velocity: Vector3, overrideVelocity: bool):
 	if overrideVelocity:

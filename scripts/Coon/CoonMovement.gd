@@ -6,7 +6,6 @@ class_name CoonMovement
 @export var camera: CoonCameraComponent
 
 @export var stateChart: StateChart
-
 @export var canMove: bool = true
 
 @export_category("Grounded")
@@ -16,12 +15,16 @@ class_name CoonMovement
 @export var max_ground_speed: float = 5
 @export var jump_veloctiy: float = 9
 @export var push_force: float = 1
+@export var crouchingHeight: float = 1
+
+var standingHeight: float 
 
 @export_category("Sliding")
-@export var ticksUntilBraking: int = 20
+@export var ticksUntilBraking: int = 30
 @export var slidingFrictionCoeffecient: float = 0
 @export var slidingBrakingFriction: float = 0.5
 @export var slidingSpeedRequirement: float = 3.5
+@export var slidingHorizantalInfluence: float = 5.0
 
 @export_category("Airborne")
 @export var air_acceleration: float = 2.7
@@ -45,7 +48,7 @@ enum EMovementState{
 	WALLRUNNING,
 	MANTLE
 }
-var collisionMesh: CapsuleMesh
+var collisionMesh: CapsuleShape3D
 
 var clientRotation: Vector3 = Vector3.ZERO
 var GRAVITY: float = ProjectSettings.get("physics/3d/default_gravity")
@@ -160,6 +163,11 @@ func is_inputting_directions(input: CoonInputContainer) -> bool:
 func simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonStateContainer:
 	var newState: CoonStateContainer
 
+	if input.attemptingCrouch:
+		collisionMesh.height = 1
+	else:
+		collisionMesh.height = 2
+
 	if state.stateOnFloor:
 		if not input.attemptingCrouch || state.stateVelocity.length() < slidingSpeedRequirement:
 			newState = ground_simulate(input, state)
@@ -268,17 +276,18 @@ func ground_simulate(input: CoonInputContainer, state: CoonStateContainer) -> Co
 	return CoonStateContainer.new(body)
 
 func sliding_simulate(input: CoonInputContainer, state: CoonStateContainer) -> CoonStateContainer:
-	var t: int = state.slidingTime
-	
-
-	
 	var iA: Vector2 = input.inputaxis
+	iA.y = clamp(iA.y, 0, 1)
+	
+	var dir = normalized_dir_from_axis(input.inputaxis)
+	
+	var t: int = state.slidingTime
 	var v1: Vector3 = state.stateVelocity
 	
 	var slidingBraking  = clamp(t - ticksUntilBraking, 0, 30) * slidingBrakingFriction
 	var slidingFriction = slidingBraking + (ground_friction * slidingFrictionCoeffecient)
 	
-	print(slidingFriction)
+	v1 += (dir * slidingHorizantalInfluence) * PHYSICS_DELTA
 	
 	var newV = v1.move_toward(
 		Vector3.ZERO, slidingFriction * PHYSICS_DELTA
@@ -299,9 +308,6 @@ func wallrun_simulate(input: CoonInputContainer, state: CoonStateContainer) -> C
 	# TODO: Implement Wallrun
 	body.move_and_slide()
 	return CoonStateContainer.new(body)
-
-
-
 
 
 func clear_past_history():

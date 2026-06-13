@@ -146,6 +146,8 @@ ground_counteract_factor = 3.0
 ground_friction = 30.0
 jump_veloctiy = 7.0
 push_force = 2.0
+crouchingHeight = null
+ticksUntilBraking = 20
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("10_8ervh")
